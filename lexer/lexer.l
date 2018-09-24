@@ -101,24 +101,3 @@ ID          ({LITTER}|_)({LITTER}|{DIGIT}|_)*
 {COMMENT}       /* skip all comments */
 
 %%
-
-int main(int argc, char** argv)
-{
-    ++argv;
-    --argc;
-    FlexLexer* lexer;
-    std::ifstream* fin = new std::ifstream;
-
-    if (argc > 0)
-    {
-        fin->open(argv[0], std::fstream::in);
-        lexer = new yyFlexLexer(fin);
-    }
-    else
-    {
-        lexer = new yyFlexLexer;
-    }
-
-    while(lexer->yylex() != 0) {}
-    return 0;
-}
