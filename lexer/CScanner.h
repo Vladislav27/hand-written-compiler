@@ -33,4 +33,27 @@ namespace Comp{
         Comp::CParser::semantic_type *yylval = nullptr;
     };
 
+    class LineHandler {
+    public:
+        unsigned int getPosition(unsigned int step)
+        {
+            int old = position;
+            position += step;
+            return old;
+        }
+        void refreshValues()
+        {
+            position = 1;
+            currentLine++;
+        }
+        unsigned int getLine()
+        {
+            return currentLine;
+        }
+
+    private:
+        unsigned int position = 1;
+        unsigned int currentLine = 1;
+    };
+
 } /* end namespace Comp */

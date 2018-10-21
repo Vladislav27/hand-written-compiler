@@ -1,6 +1,7 @@
 %{
 
 #include <fstream>
+#include <string.h>
 /* Implementation of yyFlexScanner */
 #include "CScanner.h"
 #undef  YY_DECL
@@ -8,6 +9,8 @@
 
 /* typedef to make the returns for the tokens shorter */
 using token = Comp::CParser::token;
+
+Comp::LineHandler lineHandler;
 
 %}
 
@@ -22,7 +25,8 @@ LITTER      [A-Za-z]
 DIGIT       [0-9]
 NUMBER      [-+]?{DIGIT}{DIGIT}*
 
-WS          [ \t\n]+
+WS          [ \t]
+NEWLINE     \n
 COMMENT     "//"[^\n]*"\n"|"/*".*"*/"
 STRING      \"[^\n"]+\"
 SEMI        ";"
@@ -49,85 +53,110 @@ ID          ({LITTER}|_)({LITTER}|{DIGIT}|_)*
 
 {SEMI}          {
                     std::cout << "SEMI" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::SEMI );
                 }
 {COMMA}         {
                     std::cout << "COMMA" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::COMMA );
                 }
 {INT}           {
                     std::cout << "INT" << std::endl;
+                    std::cout << lineHandler.getPosition(3) << " " << lineHandler.getLine() << std::endl;
                     return( token::INT);
                 }
 {BOOL}          {
                     std::cout << "BOOL" << std::endl;
+                    std::cout << lineHandler.getPosition(7) << " " << lineHandler.getLine() << std::endl;
                     return( token::BOOL );
                 }
 {CLASS}         {
                     std::cout << "CLASS" << std::endl;
+                    std::cout << lineHandler.getPosition(5) << " " << lineHandler.getLine() << std::endl;
                     return( token::CLASS );
                 }
 {EXTENDS}       {
                     std::cout << "EXTENDS" << std::endl;
+                    std::cout << lineHandler.getPosition(7) << " " << lineHandler.getLine() << std::endl;
                     return( token::EXTENDS );
                 }
 {IF}            {
                     std::cout << "IF" << std::endl;
+                    std::cout << lineHandler.getPosition(2) << " " << lineHandler.getLine() << std::endl;
                     return( token::IF );
                 }
 {ELSE}          {
                     std::cout << "ELSE" << std::endl;
+                    std::cout << lineHandler.getPosition(4) << " " << lineHandler.getLine() << std::endl;
                     return( token::ELSE );
                 }
 {EQUAL}         {
                     std::cout << "EQUAL" << std::endl;
+                    std::cout << lineHandler.getPosition(2) << " " << lineHandler.getLine() << std::endl;
                     return( token::EQUAL );
                 }
 {ASSIGN}        {
                     std::cout << "ASSIGN" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::ASSIGN );
                 }
 {LPAREN}        {
                     std::cout << "LPAREN" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::LPAREN );
                 }
 {RPAREN}        {
                     std::cout << "RPAREN" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::RPAREN );
                 }
 {LBRACE}        {
                     std::cout << "LBRACE" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::LBRACE );
                 }
 {RBRACE}        {
                     std::cout << "RBRACE" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return( token::RBRACE );
                 }
 {TRUE}          {
                     std::cout << "TRUE" << std::endl;
+                    std::cout << lineHandler.getPosition(4) << " " << lineHandler.getLine() << std::endl;
                     return( token::TRUE );
                 }
 {FALSE}         {
                     std::cout << "FALSE" << std::endl;
+                    std::cout << lineHandler.getPosition(5) << " " << lineHandler.getLine() << std::endl;
                     return( token::FALSE );
                 }
 {RETURN}        {
                     std::cout << "RETURN" << std::endl;
+                    std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
                     return( token::RETURN );
                 }
 {ID}            {
                     std::cout << "ID(" << YYText() << ")" << std::endl;
+                    std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
                     return( token::ID );
                 }
 {NUMBER}        {
                     std::cout << "NUMBER(" << YYText() << ")" << std::endl;
+                    std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
                     return( token::NUMBER );
                 }
 {STRING}        {
                     std::cout << "STRING(" << YYText() << ")" << std::endl;
+                    std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
                     return( token::STRING );
                 }
-{WS}            /* skip blanks and tabs newlines*/
+{WS}            {
+                    lineHandler.getPosition(1);
+                }
+{NEWLINE}       {
+                    lineHandler.refreshValues();
+                }
 {COMMENT}       /* skip all comments */
 
 %%
