@@ -78,5 +78,5 @@ std::ostream& Comp::CDriver::print( std::ostream &stream )
 
 void Comp::CDriver::token()
 {
-   std::cout << "Token" << std::endl;
+//   std::cout << "Token" << std::endl;
 }
