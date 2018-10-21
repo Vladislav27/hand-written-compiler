@@ -1,7 +1,6 @@
 boolean match_0(int n) {
-    // compares "n" with 0
     if (n == 0  ) {
-        return /* some comment */ true;
+        return true;
     }
     else {
         return false;
