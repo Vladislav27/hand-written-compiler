@@ -1,113 +1,1 @@
-%skeleton "lalr1.cc"
-%require  "3.0"
-%debug
-%defines
-%define api.namespace {Comp}
-%define parser_class_name {CParser}
-
-%code requires{
-   namespace Comp {
-      class CDriver;
-      class CScanner;
-   }
-
-// The following definitions is missing when %locations isn't used
-# ifndef YY_NULLPTR
-#  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULLPTR nullptr
-#  else
-#   define YY_NULLPTR 0
-#  endif
-# endif
-
-}
-
-%parse-param { CScanner  &scanner  }
-%parse-param { CDriver  &driver  }
-
-%code{
-   #include <iostream>
-   #include <cstdlib>
-   #include <fstream>
-
-   /* include for all driver functions */
-   #include "CDriver.h"
-
-#undef yylex
-#define yylex scanner.yylex
-}
-
-%define api.value.type variant
-%define parse.assert
-
-%token               END    0     "end of file"
-%token               LITTER
-%token               DIGIT
-%token               NUMBER
-%token               WS
-%token               COMMENT
-%token               STRING
-%token               SEMI
-%token               COMMA
-%token               ASSIGN
-%token               EQUAL
-%token               LPAREN
-%token               RPAREN
-%token               LBRACE
-%token               RBRACE
-%token               IF
-%token               ELSE
-%token               TRUE
-%token               FALSE
-%token               INT
-%token               BOOL
-%token               CLASS
-%token               EXTENDS
-%token               RETURN
-%token               ID
-
-%locations
-
-%%
-
-list_option : END | list END;
-
-list
-  : item
-  | list item
-  ;
-
-item
-  : LITTER   { driver.token(); }
-  | DIGIT   { driver.token(); }
-  | NUMBER   { driver.token(); }
-  | WS   { driver.token(); }
-  | COMMENT   { driver.token(); }
-  | STRING   { driver.token(); }
-  | SEMI   { driver.token(); }
-  | COMMA   { driver.token(); }
-  | ASSIGN   { driver.token(); }
-  | EQUAL   { driver.token(); }
-  | LPAREN   { driver.token(); }
-  | RPAREN   { driver.token(); }
-  | LBRACE   { driver.token(); }
-  | RBRACE   { driver.token(); }
-  | IF   { driver.token(); }
-  | ELSE   { driver.token(); }
-  | TRUE   { driver.token(); }
-  | FALSE   { driver.token(); }
-  | INT   { driver.token(); }
-  | BOOL   { driver.token(); }
-  | CLASS   { driver.token(); }
-  | EXTENDS   { driver.token(); }
-  | RETURN   { driver.token(); }
-  | ID   { driver.token(); }
-  ;
-
-%%
-
-
-void Comp::CParser::error( const location_type &l, const std::string &err_message )
-{
-   std::cerr << "Error: " << err_message << " at " << l << "\n";
-}
+%skeleton "lalr1.cc"%require  "3.0"%debug%defines%define api.namespace {Comp}%define parser_class_name {CParser}%code requires{   namespace Comp {      class CDriver;      class CScanner;   }// The following definitions is missing when %locations isn't used# ifndef YY_NULLPTR#  if defined __cplusplus && 201103L <= __cplusplus#   define YY_NULLPTR nullptr#  else#   define YY_NULLPTR 0#  endif# endif}%parse-param { CScanner  &scanner  }%parse-param { CDriver  &driver  }%code{   #include <iostream>   #include <cstdlib>   #include <fstream>   /* include for all driver functions */   #include "CDriver.h"#undef yylex#define yylex scanner.yylex}%define api.value.type variant%define parse.assert%token               END    0     "end of file"%token               LITTER%token               DIGIT%token               NUMBER%token               WS%token               COMMENT%token               STRING%token               SEMI%token               COMMA%token               ASSIGN%token               EQUAL%token               LPAREN%token               RPAREN%token               LBRACE%token               RBRACE%token               IF%token               ELSE%token               TRUE%token               FALSE%token               INT%token               BOOL%token               CLASS%token               EXTENDS%token               RETURN%token               ID%token               PLUS%token               MINUS%token               MULT%token               AND%token               OR%token               LESS%token               MOD%token               LBRACKET%token               RBRACKET%token               WHILE%token               INTARRAY%token               TSTRING%token               TSTRINGARRAY%token               PUBLIC%token               PRIVATE%token               THIS%token               NEW%token               MAIN%token               PRINT%token               NOT%token               DOT%token               LENGTH%locations%nonassoc OR%nonassoc AND%left PLUS MINUS%left MULT%right NOT%left DOT%left LBRACKET%nonassoc ASSIGN%nonassoc LESS%%Goal    : MainClass ClassDeclarations END {    };MainClass    : CLASS ID[name] "{"        MAIN "(" TSTRINGARRAY ID[args] ")" "{"            Statement        "}"    "}" {    };ClassDeclarations    : %empty {    }    | ClassDeclarations ClassDeclaration {    };ClassDeclaration    : CLASS ID[name] "{"        VarDeclarations        MethodDeclarations    "}" {    }    | CLASS ID[name] EXTENDS ID[parent] "{"        VarDeclarations        MethodDeclarations    "}" {    };NotEmptyVarDeclarationList    : VarDeclaration {    }    | NotEmptyVarDeclarationList VarDeclaration {    };VarDeclarations    : %empty {    }    | NotEmptyVarDeclarationList {    };VarDeclaration    : Type ID ";" {    };Type    : INT {    }    | INTARRAY {    }    | BOOL {    }    | ID {    };MethodDeclarations    : %empty {    }    | MethodDeclarations MethodDeclaration {    };MethodDeclaration    : PUBLIC Type[type] ID[name] "(" ArgumentList ")" "{"        NotEmptyVarDeclarationList        NotEmptyStatementList        RETURN Expression ";"    "}" {    }    | PUBLIC Type[type] ID[name] "(" ArgumentList ")" "{"        NotEmptyStatementList        RETURN Expression ";"    "}" {    }    | PUBLIC Type[type] ID[name] "(" ArgumentList ")" "{"        NotEmptyVarDeclarationList        RETURN Expression ";"    "}" {    }    | PUBLIC Type[type] ID[name] "(" ArgumentList ")" "{"        RETURN Expression ";"    "}" {    };NotEmptyArgumentList    : Type ID {    }    | NotEmptyArgumentList COMMA Type ID {    };ArgumentList    : %empty {    }    | NotEmptyArgumentList {    };NotEmptyStatementList    : Statement {    }    | NotEmptyStatementList Statement {    }Statements    : %empty {    }    | NotEmptyStatementList {    };Statement    : "{"        Statements    "}" {    }    | IF "(" Expression ")" Statement[trueStatement] ELSE Statement[falseStatement] {    }    | WHILE "(" Expression ")" Statement[statement] {    }    | PRINT "(" Expression ")" ";" {    }    | ID ASSIGN Expression ";" {    }    | ID "[" Expression[index] "]" ASSIGN Expression[rvalue] ";" {    };Expression    : Expression[left] AND Expression[right] {    }    | Expression[left] LESS Expression[right] {    }    | Expression[left] PLUS Expression[right] {    }    | Expression[left] MINUS Expression[right] {    }    | Expression[left] MULT Expression[right] {    }    | Expression[array] "[" Expression[index] "]" {    }    | Expression[array] DOT LENGTH {    }    | Expression[object] DOT ID[methodName] "(" ArgumentExpressions[args] ")" {    }    | NUMBER {    }    | TRUE {    }    | FALSE {    }    | ID {    }    | THIS {    }    | NEW INT "[" Expression[size] "]" {    }    | NEW ID[clazz] "(" ")" {    }    | NOT Expression[expression] {    }    | "(" Expression[expression] ")" {    };NotEmptyArgumentExpressions    : Expression {    }    | ArgumentExpressions COMMA Expression {    };ArgumentExpressions    : %empty {    }    | NotEmptyArgumentExpressions {    };%%void Comp::CParser::error( const location_type &l, const std::string &err_message ){   std::cerr << "Error: " << err_message << " at " << l << "\n";}
