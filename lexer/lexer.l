@@ -4,6 +4,7 @@
 #include <string.h>
 /* Implementation of yyFlexScanner */
 #include "CScanner.h"
+#include "LineHandler.h"
 #undef  YY_DECL
 #define YY_DECL int Comp::CScanner::yylex( Comp::CParser::semantic_type * const lval, Comp::CParser::location_type *loc )
 
