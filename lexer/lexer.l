@@ -190,10 +190,10 @@ LENGTH      "length"
                     std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
                     return token::MULT;
                 }
-{ADD}           {
-                    std::cout << "ADD" << std::endl;
+{AND}           {
+                    std::cout << "AND" << std::endl;
                     std::cout << lineHandler.getPosition(2) << " " << lineHandler.getLine() << std::endl;
-                    return token::ADD;
+                    return token::AND;
                 }
 {OR}            {
                     std::cout << "OR" << std::endl;
@@ -245,7 +245,7 @@ LENGTH      "length"
                     std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
                     return token::PUBLIC;
                 }
-{PRIVATE}          {
+{PRIVATE}       {
                     std::cout << "PRIVATE" << std::endl;
                     std::cout << lineHandler.getPosition(7) << " " << lineHandler.getLine() << std::endl;
                     return token::PRIVATE;
@@ -269,6 +269,21 @@ LENGTH      "length"
                     std::cout << "PRINT" << std::endl;
                     std::cout << lineHandler.getPosition(18) << " " << lineHandler.getLine() << std::endl;
                     return token::PRINT;
+                }
+{NOT}           {
+                    std::cout << "NOT" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::NOT;
+                }
+{DOT}           {
+                    std::cout << "DOT" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::DOT;
+                }
+{LENGTH}        {
+                    std::cout << "LENGTH" << std::endl;
+                    std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
+                    return token::LENGTH;
                 }
 {WS}            {
                     lineHandler.getPosition(1);

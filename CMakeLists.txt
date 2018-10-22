@@ -3,9 +3,9 @@ project(hand_written_compiler)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-deprecated-register")
-set(BISON_EXECUTABLE "/usr/local/opt/bison/bin/bison")
+# set(BISON_EXECUTABLE "/usr/local/opt/bison/bin/bison")
 
-find_package(BISON 3.1 REQUIRED)
+find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
 
 BISON_TARGET(parser
