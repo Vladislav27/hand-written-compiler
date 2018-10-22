@@ -160,11 +160,6 @@ LENGTH      "length"
                     std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
                     return( token::RETURN );
                 }
-{ID}            {
-                    std::cout << "ID(" << YYText() << ")" << std::endl;
-                    std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
-                    return( token::ID );
-                }
 {NUMBER}        {
                     std::cout << "NUMBER(" << YYText() << ")" << std::endl;
                     std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
@@ -284,6 +279,11 @@ LENGTH      "length"
                     std::cout << "LENGTH" << std::endl;
                     std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
                     return token::LENGTH;
+                }
+{ID}            {
+                    std::cout << "ID(" << YYText() << ")" << std::endl;
+                    std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
+                    return( token::ID );
                 }
 {WS}            {
                     lineHandler.getPosition(1);
