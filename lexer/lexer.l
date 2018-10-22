@@ -171,6 +171,101 @@ ID          ({LITTER}|_)({LITTER}|{DIGIT}|_)*
                     std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
                     return( token::STRING );
                 }
+{PLUS}          {
+                    std::cout << "PLUS" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::PLUS;
+                }
+{MINUS}         {
+                    std::cout << "MINUS" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::MINUS;
+                }
+{MULT}          {
+                    std::cout << "MULT" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::MULT;
+                }
+{ADD}           {
+                    std::cout << "ADD" << std::endl;
+                    std::cout << lineHandler.getPosition(2) << " " << lineHandler.getLine() << std::endl;
+                    return token::ADD;
+                }
+{OR}            {
+                    std::cout << "OR" << std::endl;
+                    std::cout << lineHandler.getPosition(2) << " " << lineHandler.getLine() << std::endl;
+                    return token::OR;
+                }
+{LESS}          {
+                    std::cout << "LESS" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::LESS;
+                }
+{MOD}           {
+                    std::cout << "MOD" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::MOD;
+                }
+{LBRACKET}      {
+                    std::cout << "LBRACKET" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::LBRACKET;
+                }
+{RBRACKET}      {
+                    std::cout << "RBRACKET" << std::endl;
+                    std::cout << lineHandler.getPosition(1) << " " << lineHandler.getLine() << std::endl;
+                    return token::RBRACKET;
+                }
+{WHILE}         {
+                    std::cout << "WHILE" << std::endl;
+                    std::cout << lineHandler.getPosition(5) << " " << lineHandler.getLine() << std::endl;
+                    return token::WHILE;
+                }
+{INTARRAY}      {
+                    std::cout << "INTARRAY" << std::endl;
+                    std::cout << lineHandler.getPosition(5) << " " << lineHandler.getLine() << std::endl;
+                    return token::INTARRAY;
+                }
+{TSTRING}       {
+                    std::cout << "TSTRING" << std::endl;
+                    std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
+                    return token::TSTRING;
+                }
+{TSTRINGARRAY}  {
+                    std::cout << "TSTRINGARRAY" << std::endl;
+                    std::cout << lineHandler.getPosition(8) << " " << lineHandler.getLine() << std::endl;
+                    return token::TSTRINGARRAY;
+                }
+{PUBLIC}        {
+                    std::cout << "PUBLIC" << std::endl;
+                    std::cout << lineHandler.getPosition(6) << " " << lineHandler.getLine() << std::endl;
+                    return token::PUBLIC;
+                }
+{PRIVATE}          {
+                    std::cout << "PRIVATE" << std::endl;
+                    std::cout << lineHandler.getPosition(7) << " " << lineHandler.getLine() << std::endl;
+                    return token::PRIVATE;
+                }
+{THIS}          {
+                    std::cout << "THIS" << std::endl;
+                    std::cout << lineHandler.getPosition(4) << " " << lineHandler.getLine() << std::endl;
+                    return token::THIS;
+                }
+{NEW}           {
+                    std::cout << "NEW" << std::endl;
+                    std::cout << lineHandler.getPosition(3) << " " << lineHandler.getLine() << std::endl;
+                    return token::NEW;
+                }
+{MAIN}          {
+                    std::cout << "MAIN" << std::endl;
+                    std::cout << lineHandler.getPosition(4) << " " << lineHandler.getLine() << std::endl;
+                    return token::MAIN;
+                }
+{PRINT}         {
+                    std::cout << "PRINT" << std::endl;
+                    std::cout << lineHandler.getPosition(18) << " " << lineHandler.getLine() << std::endl;
+                    return token::PRINT;
+                }
 {WS}            {
                     lineHandler.getPosition(1);
                 }
