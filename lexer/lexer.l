@@ -68,6 +68,10 @@ MAIN        "main"
 PRINT       "System.out.println"
 ID          ({LITTER}|_)({LITTER}|{DIGIT}|_)*
 
+NOT         "!"
+DOT         "."
+LENGTH      "length"
+
 
 %%
 
