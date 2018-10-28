@@ -5,3 +5,6 @@
 
 Для запуска в CLion:
     Запускать application "hand_witten_compiler" с аргументами ../lexer/test
+
+Google Test:
+    https://github.com/google/googletest

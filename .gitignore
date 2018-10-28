@@ -2,3 +2,4 @@
 *cmake-build-debug/*
 *lexera
 *lex.yy.cc
+*googletest-master/*
