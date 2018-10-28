@@ -1,4 +1,5 @@
 #include "GraphVizPrinterVisitor.h"
+#define ENUM_TO_STR(ENUM) std::string(#ENUM)
 
 namespace NTree {
 
@@ -24,7 +25,6 @@ namespace NTree {
 
     void GraphVizPrinterVisitor::Visit(const Program *node) {
         outPut << "digraph g {\n" << "\n";
-
         this->printVertex(node, std::string("Program"));
 
         node->mainClass->Accept(this);
@@ -64,7 +64,7 @@ namespace NTree {
 
     void GraphVizPrinterVisitor::Visit(const AssignStatement *node) {
         if ((node->lvalue) != nullptr) {
-            printVertex(node, (node->lvalue)->String() + "=");
+            printVertex(node, (node->lvalue)->String());
         } else {
             printVertex(node, "=");
         }
@@ -73,7 +73,7 @@ namespace NTree {
     }
 
     void GraphVizPrinterVisitor::Visit(const BinaryExpression *node) {
-        printVertex(node, "binary exp " + node->type);
+        printVertex(node, binaryTypeToString(node->type));
         node->left->Accept(this);
         node->right->Accept(this);
         printEdge(node, (node->left).get(), "left");

@@ -14,6 +14,8 @@ namespace NTree {
         MULTIPLY
     };
 
+    string binaryTypeToString(EBinaryExprType v);
+
     class IExpression : public INode {
     public:
         explicit IExpression() : INode() {
