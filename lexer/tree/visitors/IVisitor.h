@@ -5,10 +5,11 @@
 #include <lexer/tree/Program.h>
 #include <lexer/tree/Expression.h>
 #include <lexer/tree/Statement.h>
-#include <lexer/tree/VarDeclaration.h.h>
+#include <lexer/tree/VarDeclaration.h>
 
 namespace NTree {
-    interface IVisitor {
+    class IVisitor {
+    public:
         virtual void Visit(const Program *) = 0;
 
         virtual void Visit(const MainClass *) = 0;

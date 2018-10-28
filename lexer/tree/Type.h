@@ -10,8 +10,9 @@ namespace NTree {
         CLASS
     };
     
-    struct Type {
+    class Type {
+    public:
         EType type = CLASS;
-        const string id;
+        const string* id;
     };
 }

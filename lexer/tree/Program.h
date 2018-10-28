@@ -7,7 +7,8 @@
 
 
 namespace NTree {
-    struct Program : public INode {
+    class Program : public INode {
+    public:
         unique_ptr<MainClass> mainClass;
 
         void Accept(IVisitor *visitor) const override;

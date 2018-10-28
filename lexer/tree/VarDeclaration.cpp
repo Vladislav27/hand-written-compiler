@@ -2,8 +2,8 @@
 
 #include "visitors/IVisitor.h"
 
-namespace NSyntaxTree {
-    void VarDeclaration::Accept(IVisitor *visitor) const {
+namespace NTree {
+    void NTree::VarDeclaration::Accept(IVisitor *visitor) const {
         visitor->Visit(this);
     }
 }

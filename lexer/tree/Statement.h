@@ -7,12 +7,13 @@
 
 namespace NTree {
     class IStatement : public INode {
+    public:
         IStatement() : INode() {
         }
-        IStatement() = default;
     };
 
     class Statements : public IStatement {
+    public:
         unique_ptr<vector<unique_ptr<IStatement>>> statements;
 
         Statements(vector<unique_ptr<IStatement>>* newStatements)
@@ -23,10 +24,11 @@ namespace NTree {
     };
 
     class AssignStatement : public IStatement {
-        const string lvalue;
+    public:
+        const string* lvalue;
         unique_ptr<IExpression> rvalue;
 
-        AssignStatement(const string id, IExpression* expression)
+        AssignStatement(const string* id, IExpression* expression)
             : IStatement(), lvalue(id), rvalue(expression) {
         }
 

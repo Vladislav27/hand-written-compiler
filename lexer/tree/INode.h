@@ -6,9 +6,7 @@ namespace NTree {
     class IVisitor;
 
     class INode {
-
-        INode() = default;
-
+    public:
         INode(){}
 
         virtual void Accept(IVisitor *visitor) const = 0;

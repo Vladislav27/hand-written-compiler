@@ -15,12 +15,13 @@ namespace NTree {
     };
 
     class IExpression : public INode {
+    public:
         explicit IExpression() : INode() {
         }
-        IExpression() = default;
     };
 
     class BinaryExpression : public IExpression {
+    public:
         EBinaryExprType type;
         unique_ptr<IExpression> left;
         unique_ptr<IExpression> right;
@@ -35,6 +36,7 @@ namespace NTree {
     };
 
     class IntegerLiteralExpression : public IExpression {
+    public:
         int value;
 
         IntegerLiteralExpression(int value)
@@ -45,6 +47,7 @@ namespace NTree {
     };
 
     class BoolLiteralExpression : public IExpression {
+    public:
         bool value;
 
         BoolLiteralExpression(bool value)
@@ -55,9 +58,10 @@ namespace NTree {
     };
 
     class IdentifierExpression : public IExpression {
-        const string identifier;
+    public:
+        const string* identifier;
 
-        IdentifierExpression(const string identifier)
+        IdentifierExpression(const string* identifier)
             : IExpression(), identifier(identifier) {
         }
 
@@ -65,6 +69,7 @@ namespace NTree {
     };
 
     class NegateExpression : public IExpression {
+    public:
         unique_ptr<IExpression> expression;
 
         NegateExpression(IExpression* newExpr)
