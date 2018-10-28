@@ -73,7 +73,8 @@ void Comp::CDriver::parse_helper( std::istream &stream )
 
 std::ostream& Comp::CDriver::print( std::ostream &stream )
 {
-   stream << "Print" << "\n";
+   auto vizualizer = new NTree::GraphVizPrinterVisitor(stream);
+   vizualizer->Visit(&program);
    return(stream);
 }
 

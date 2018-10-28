@@ -6,6 +6,7 @@
 
 #include "CScanner.h"
 #include "parser.tab.hh"
+#include "lexer/tree/visitors/GraphVizPrinterVisitor.h"
 
 namespace Comp{
 
