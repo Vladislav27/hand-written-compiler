@@ -25,10 +25,10 @@ namespace NTree {
 
     class AssignStatement : public IStatement {
     public:
-        const string* lvalue;
+        const Symbol* lvalue;
         unique_ptr<IExpression> rvalue;
 
-        AssignStatement(const string* id, IExpression* expression)
+        AssignStatement(const Symbol* id, IExpression* expression)
             : IStatement(), lvalue(id), rvalue(expression) {
         }
 

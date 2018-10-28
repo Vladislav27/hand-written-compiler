@@ -35,23 +35,22 @@ namespace NTree {
     }
 
     void GraphVizPrinterVisitor::Visit(const MainClass *node) {
-        printVertex(node, "Main " + *(node->nameId) + " mainArgsId " + *(node->mainArgsId));
+        printVertex(node, "Main " + (node->nameId)->String() + " mainArgsId " + (node->mainArgsId)->String());
         node->mainStatement->Accept(this);
         printEdge(node, (node->mainStatement).get());
     }
 
     void GraphVizPrinterVisitor::Visit(const VarDeclaration *node) {
         if ((node->type.id) != nullptr && (node->id) != nullptr) {
-            printVertex(node, *(node->type.id) + " " + *(node->id));
+            printVertex(node, (node->type.id)->String() + " " + (node->id)->String());
         } else {
             if ((node->type.id) != nullptr) {
-                printVertex(node, *(node->type.id));
+                printVertex(node, (node->type.id)->String());
             } else {
-                printVertex(node, *(node->id));
+                printVertex(node, (node->id)->String());
             }
         }
     }
-
 
     void GraphVizPrinterVisitor::Visit(const Statements *node) {
         printVertex(node, "statements");
@@ -65,9 +64,9 @@ namespace NTree {
 
     void GraphVizPrinterVisitor::Visit(const AssignStatement *node) {
         if ((node->lvalue) != nullptr) {
-            printVertex(node, *(node->lvalue) + "=");
+            printVertex(node, (node->lvalue)->String() + "=");
         } else {
-            printVertex(node, "=");          
+            printVertex(node, "=");
         }
         node->rvalue->Accept(this);
         printEdge(node, (node->rvalue).get(), "rvalue");
@@ -91,12 +90,11 @@ namespace NTree {
 
     void GraphVizPrinterVisitor::Visit(const IdentifierExpression *node) {
         if ((node->identifier) != nullptr) {
-            printVertex(node, "identifier " + *(node->identifier));
+            printVertex(node, "identifier " + (node->identifier)->String());
         } else {
             printVertex(node, "identifier");
         }
     }
-
 
     void GraphVizPrinterVisitor::Visit(const NegateExpression *node) {
         printVertex(node, "negate");

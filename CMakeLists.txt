@@ -20,6 +20,7 @@ ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 set(SOURCE_FILES main.cpp
         lexer/CDriver.cpp
         lexer/LineHandler.cpp
+        lexer/Symbol.cpp
         lexer/tree/Class.cpp
         lexer/tree/Expression.cpp
         lexer/tree/Program.cpp

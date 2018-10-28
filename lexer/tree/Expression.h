@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-
+#include "Symbol.h"
 #include "INode.h"
 
 namespace NTree {
@@ -59,9 +59,9 @@ namespace NTree {
 
     class IdentifierExpression : public IExpression {
     public:
-        const string* identifier;
+        const Symbol* identifier;
 
-        IdentifierExpression(const string* identifier)
+        IdentifierExpression(const Symbol* identifier)
             : IExpression(), identifier(identifier) {
         }
 

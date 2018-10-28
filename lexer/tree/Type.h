@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common.h"
+#include "Symbol.h"
 
 namespace NTree {
     enum EType {
@@ -13,6 +14,12 @@ namespace NTree {
     class Type {
     public:
         EType type = CLASS;
-        const string* id;
+        const Symbol* id;
+
+//        Type& operator=(Type& t)
+//        {
+//            type = t.type;
+//            id = t.id;
+//        }
     };
 }
