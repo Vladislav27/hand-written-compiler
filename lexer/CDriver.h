@@ -34,6 +34,7 @@ private:
 
    Comp::CParser  *parser  = nullptr;
    Comp::CScanner *scanner = nullptr;
+   NTree::Program program;
 };
 
 } /* end namespace Comp*/
