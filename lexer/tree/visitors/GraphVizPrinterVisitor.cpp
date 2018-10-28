@@ -31,36 +31,29 @@ namespace NTree {
 
         printEdge(node, (node->mainClass).get());
 
-        if (node->classes != nullptr) {
-            for (const auto &cl : *(node->classes)) {
-                cl->Accept(this);
-                printEdge(node, cl.get());
-            }
-        }
-
         outPut << "}";
     }
 
-    void PrettyPrinterVisitor::Visit(const MainClass *node) { 
-        printVertex(node, "Main " + (node->nameId)->String() + " mainArgsId " + (node->mainArgsId)->String());
+    void GraphVizPrinterVisitor::Visit(const MainClass *node) {
+        printVertex(node, "Main " + *(node->nameId) + " mainArgsId " + *(node->mainArgsId));
         node->mainStatement->Accept(this);
         printEdge(node, (node->mainStatement).get());
     }
 
-    void PrettyPrinterVisitor::Visit(const VarDeclaration *node) {
+    void GraphVizPrinterVisitor::Visit(const VarDeclaration *node) {
         if ((node->type.id) != nullptr && (node->id) != nullptr) {
-            printVertex(node, (node->type.id)->String() + " " + (node->id)->String());
+            printVertex(node, *(node->type.id) + " " + *(node->id));
         } else {
             if ((node->type.id) != nullptr) {
-                printVertex(node, (node->type.id)->String());
+                printVertex(node, *(node->type.id));
             } else {
-                printVertex(node, (node->id)->String());
+                printVertex(node, *(node->id));
             }
         }
     }
 
 
-    void PrettyPrinterVisitor::Visit(const Statements *node) {
+    void GraphVizPrinterVisitor::Visit(const Statements *node) {
         printVertex(node, "statements");
         if (node->statements != nullptr) {
             for (const auto &statement : *(node->statements)) {
@@ -72,7 +65,7 @@ namespace NTree {
 
     void GraphVizPrinterVisitor::Visit(const AssignStatement *node) {
         if ((node->lvalue) != nullptr) {
-            printVertex(node, (node->lvalue)->String() + "=");
+            printVertex(node, *(node->lvalue) + "=");
         } else {
             printVertex(node, "=");          
         }
@@ -98,19 +91,12 @@ namespace NTree {
 
     void GraphVizPrinterVisitor::Visit(const IdentifierExpression *node) {
         if ((node->identifier) != nullptr) {
-            printVertex(node, "identifier " + (node->identifier)->String());
+            printVertex(node, "identifier " + *(node->identifier));
         } else {
             printVertex(node, "identifier");
         }
     }
 
-    void GraphVizPrinterVisitor::Visit(const NewExpression *node) {
-        if ((node->classId) != nullptr) {
-            printVertex(node, "new " + (node->classId)->String());
-        } else {
-            printVertex(node, "new");
-        }
-    }
 
     void GraphVizPrinterVisitor::Visit(const NegateExpression *node) {
         printVertex(node, "negate");
