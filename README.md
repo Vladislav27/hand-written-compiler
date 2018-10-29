@@ -8,3 +8,11 @@
 
 Google Test:
     https://github.com/google/googletest
+
+### Отрисовка графа
+
+Для отрисовки графа выполнить в консоли:
+
+```
+./graphviz.sh
+```

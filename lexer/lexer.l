@@ -5,6 +5,7 @@
 /* Implementation of yyFlexScanner */
 #include "CScanner.h"
 #include "LineHandler.h"
+#include "Symbol.h"
 #undef  YY_DECL
 #define YY_DECL int Comp::CScanner::yylex( Comp::CParser::semantic_type * const lval, Comp::CParser::location_type *loc )
 
@@ -24,7 +25,7 @@ Comp::LineHandler lineHandler;
 
 LITTER      [A-Za-z]
 DIGIT       [0-9]
-NUMBER      [-+]?{DIGIT}{DIGIT}*
+NUMBER      {DIGIT}{DIGIT}*
 
 WS          [ \t]
 NEWLINE     \n
@@ -163,6 +164,8 @@ LENGTH      "length"
 {NUMBER}        {
                     std::cout << "NUMBER(" << YYText() << ")" << std::endl;
                     std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
+                    int value = std::atoi(yytext);
+                    lval->build<int>(value);
                     return( token::NUMBER );
                 }
 {STRING}        {
@@ -283,6 +286,9 @@ LENGTH      "length"
 {ID}            {
                     std::cout << "ID(" << YYText() << ")" << std::endl;
                     std::cout << lineHandler.getPosition(strlen(YYText())) << " " << lineHandler.getLine() << std::endl;
+                    std::string s = YYText();
+                    const NTree::Symbol* str = new NTree::Symbol(s);
+                    lval->build<const NTree::Symbol*>(str);
                     return( token::ID );
                 }
 {WS}            {

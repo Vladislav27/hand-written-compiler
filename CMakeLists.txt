@@ -19,7 +19,17 @@ FLEX_TARGET(lexer
 ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 
 
-set(SOURCE_FILES lexer/CDriver.cpp lexer/LineHandler.cpp lexer/LineHandler.h)
+set(SOURCE_FILES
+        lexer/CDriver.cpp
+        lexer/LineHandler.cpp
+        lexer/Symbol.cpp
+        lexer/tree/Class.cpp
+        lexer/tree/Expression.cpp
+        lexer/tree/Program.cpp
+        lexer/tree/Statement.cpp
+        lexer/tree/VarDeclaration.cpp
+        lexer/tree/MethodDeclaration.cpp
+        lexer/tree/visitors/GraphVizPrinterVisitor.cpp)
 
 add_executable(hand_written_compiler
         main.cpp

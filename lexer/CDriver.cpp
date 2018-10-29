@@ -54,7 +54,8 @@ void Comp::CDriver::parse_helper( std::istream &stream )
    try
    {
       parser = new Comp::CParser( (*scanner) /* scanner */,
-                                  (*this) /* driver */ );
+                                  (*this) /* driver */,
+                                  program);
    }
    catch( std::bad_alloc &ba )
    {
@@ -72,7 +73,8 @@ void Comp::CDriver::parse_helper( std::istream &stream )
 
 std::ostream& Comp::CDriver::print( std::ostream &stream )
 {
-   stream << "Print" << "\n";
+   auto vizualizer = new NTree::GraphVizPrinterVisitor(stream);
+   vizualizer->Visit(&program);
    return(stream);
 }
 

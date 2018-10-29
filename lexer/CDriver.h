@@ -6,6 +6,7 @@
 
 #include "CScanner.h"
 #include "parser.tab.hh"
+#include "lexer/tree/visitors/GraphVizPrinterVisitor.h"
 
 namespace Comp{
 
@@ -34,6 +35,7 @@ private:
 
    Comp::CParser  *parser  = nullptr;
    Comp::CScanner *scanner = nullptr;
+   NTree::Program program;
 };
 
 } /* end namespace Comp*/
