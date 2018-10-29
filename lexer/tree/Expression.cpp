@@ -21,6 +21,30 @@ void NTree::NegateExpression::Accept(NTree::IVisitor *visitor) const {
     visitor->Visit(this);
 }
 
+void NTree::ArrayElementAccessExpression::Accept(NTree::IVisitor *visitor) const {
+    visitor->Visit(this);
+}
+
+void NTree::ArrayLengthExpression::Accept(NTree::IVisitor *visitor) const {
+    visitor->Visit(this);
+}
+
+void NTree::MethodCallExpression::Accept(NTree::IVisitor *visitor) const {
+    visitor->Visit(this);
+}
+
+void NTree::ThisExpression::Accept(NTree::IVisitor *visitor) const {
+    visitor->Visit(this);
+}
+
+void NTree::NewIntArrayExpression::Accept(NTree::IVisitor *visitor) const {
+    visitor->Visit(this);
+}
+
+void NTree::NewExpression::Accept(NTree::IVisitor *visitor) const {
+    visitor->Visit(this);
+}
+
 std::string NTree::binaryTypeToString(NTree::EBinaryExprType v)
 {
     switch (v)

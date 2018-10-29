@@ -26,6 +26,7 @@ set(SOURCE_FILES main.cpp
         lexer/tree/Program.cpp
         lexer/tree/Statement.cpp
         lexer/tree/VarDeclaration.cpp
+        lexer/tree/MethodDeclaration.cpp
         lexer/tree/visitors/GraphVizPrinterVisitor.cpp)
 
 add_executable(hand_written_compiler

@@ -34,4 +34,58 @@ namespace NTree {
 
         void Accept(IVisitor *visitor) const override;
     };
+
+    class IfStatement : public IStatement {
+    public:
+        unique_ptr<IExpression> condition;
+
+        unique_ptr<IStatement> trueStatement;
+        unique_ptr<IStatement> falseStatement;
+
+        IfStatement(IExpression* expression
+                , IStatement* newTrueStatement
+                , IStatement* newFalseStatement)
+                : IStatement(), condition(expression), trueStatement(newTrueStatement), falseStatement(newFalseStatement) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class WhileStatement : public IStatement {
+    public:
+        unique_ptr<IExpression> condition;
+        unique_ptr<IStatement> trueStatement;
+
+        WhileStatement(IExpression* expression, IStatement* statement)
+                : IStatement(), condition(expression), trueStatement(statement) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class PrintlnStatement : public IStatement {
+    public:
+        unique_ptr<IExpression> toPrint;
+
+        inline PrintlnStatement(IExpression* expression)
+                : IStatement(), toPrint(expression) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class ArrayElementAssignmentStatement : public IStatement {
+    public:
+        const NTree::Symbol* arrayId;
+        unique_ptr<IExpression> index;
+        unique_ptr<IExpression> rvalue;
+
+        inline ArrayElementAssignmentStatement(const NTree::Symbol* id
+                , IExpression* indexExpr
+                , IExpression* rvalueExpr)
+                : IStatement(), arrayId(id), index(indexExpr), rvalue(rvalueExpr) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
 }
