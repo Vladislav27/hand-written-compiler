@@ -25,7 +25,7 @@ Comp::LineHandler lineHandler;
 
 LITTER      [A-Za-z]
 DIGIT       [0-9]
-NUMBER      [-+]?{DIGIT}{DIGIT}*
+NUMBER      {DIGIT}{DIGIT}*
 
 WS          [ \t]
 NEWLINE     \n

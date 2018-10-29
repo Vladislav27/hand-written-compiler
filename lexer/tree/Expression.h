@@ -80,4 +80,72 @@ namespace NTree {
 
         void Accept(IVisitor *visitor) const override;
     };
+
+    class ArrayElementAccessExpression : public IExpression {
+    public:
+        unique_ptr<IExpression> array;
+        unique_ptr<IExpression> index;
+
+        ArrayElementAccessExpression(IExpression* arrayExpr, IExpression* indexExpr)
+                : IExpression(), array(arrayExpr), index(indexExpr) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class ArrayLengthExpression : public IExpression {
+    public:
+        unique_ptr<IExpression> array;
+
+        inline explicit ArrayLengthExpression(IExpression* expression)
+                : IExpression(), array(expression) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class MethodCallExpression : public IExpression {
+    public:
+        unique_ptr<IExpression> object;
+        const NTree::Symbol* nameId;
+        unique_ptr<vector<unique_ptr<IExpression>>> args;
+
+        inline MethodCallExpression(IExpression* objectExpr
+                , const NTree::Symbol* name
+                , vector<unique_ptr<IExpression>>* argsVector)
+                : IExpression(), object(objectExpr), nameId(name), args(argsVector) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class ThisExpression : public IExpression {
+    public:
+        ThisExpression() : IExpression() {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class NewIntArrayExpression : public IExpression {
+    public:
+        unique_ptr<IExpression> size;
+
+        NewIntArrayExpression(IExpression* expression)
+                : IExpression(), size(expression) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
+
+    class NewExpression : public IExpression {
+    public:
+        const NTree::Symbol* classId;
+
+        inline NewExpression(const NTree::Symbol* id)
+                : IExpression(), classId(id) {
+        }
+
+        void Accept(IVisitor *visitor) const override;
+    };
 }
