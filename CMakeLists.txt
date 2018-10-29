@@ -3,6 +3,7 @@ project(hand_written_compiler)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-deprecated-register")
+# set(BISON_EXECUTABLE "/usr/local/opt/bison/bin/bison")
 
 find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
@@ -16,7 +17,17 @@ FLEX_TARGET(lexer
 ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 
 
-set(SOURCE_FILES main.cpp lexer/CDriver.cpp)
+set(SOURCE_FILES main.cpp
+        lexer/CDriver.cpp
+        lexer/LineHandler.cpp
+        lexer/Symbol.cpp
+        lexer/tree/Class.cpp
+        lexer/tree/Expression.cpp
+        lexer/tree/Program.cpp
+        lexer/tree/Statement.cpp
+        lexer/tree/VarDeclaration.cpp
+        lexer/tree/MethodDeclaration.cpp
+        lexer/tree/visitors/GraphVizPrinterVisitor.cpp)
 
 add_executable(hand_written_compiler
         ${SOURCE_FILES}

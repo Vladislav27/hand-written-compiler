@@ -8,7 +8,11 @@ int main(int argc, char** argv)
     {
         Comp::CDriver driver;
         driver.parse( argv[1] );
-        driver.print( std::cout ) << "\n";
+
+        std::ofstream fout;
+        fout.open("graph.gv");
+        driver.print(fout);
+        fout.close();
     }
     else
     {
