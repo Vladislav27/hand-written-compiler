@@ -21,7 +21,7 @@ TEST(UnitTest, test_2) {
     try {
         driver.parse("../lexer/bad_test");
     } catch (std::exception& e) {
-        flag = false;
+        flag = true;
     }
     EXPECT_TRUE(flag);
 }
