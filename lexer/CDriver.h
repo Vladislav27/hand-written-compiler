@@ -14,7 +14,7 @@ class CDriver{
 public:
    CDriver() = default;
 
-   virtual ~CDriver();
+   virtual ~CDriver() = default;
    
    /** 
     * parse - parse from a file
@@ -33,8 +33,8 @@ private:
 
    void parse_helper( std::istream &stream );
 
-   Comp::CParser  *parser  = nullptr;
-   Comp::CScanner *scanner = nullptr;
+   std::unique_ptr<Comp::CParser> parser;
+   std::unique_ptr<Comp::CScanner> scanner;
    NTree::Program program;
 };
 

@@ -1,16 +1,10 @@
+#include <memory>
+
 #include <cctype>
 #include <fstream>
 #include <cassert>
 
 #include "CDriver.h"
-
-Comp::CDriver::~CDriver()
-{
-   delete(scanner);
-   scanner = nullptr;
-   delete(parser);
-   parser = nullptr;
-}
 
 void Comp::CDriver::parse( const char * const filename )
 {
@@ -21,7 +15,7 @@ void Comp::CDriver::parse( const char * const filename )
        exit( EXIT_FAILURE );
    }
    parse_helper( in_file );
-   return;
+   in_file.close();
 }
 
 void Comp::CDriver::parse( std::istream &stream )
@@ -31,17 +25,15 @@ void Comp::CDriver::parse( std::istream &stream )
        return;
    }
    //else
-   parse_helper( stream ); 
-   return;
+   parse_helper( stream );
 }
 
 
 void Comp::CDriver::parse_helper( std::istream &stream )
 {
-   delete(scanner);
    try
    {
-      scanner = new Comp::CScanner( &stream );
+      scanner = std::make_unique<Comp::CScanner>(&stream);
    }
    catch( std::bad_alloc &ba )
    {
@@ -49,11 +41,10 @@ void Comp::CDriver::parse_helper( std::istream &stream )
          ba.what() << "), exiting!!\n";
       exit( EXIT_FAILURE );
    }
-   
-   delete(parser); 
+
    try
    {
-      parser = new Comp::CParser( (*scanner) /* scanner */,
+      parser = std::make_unique<Comp::CParser>( (*scanner) /* scanner */,
                                   (*this) /* driver */,
                                   program);
    }
@@ -69,12 +60,11 @@ void Comp::CDriver::parse_helper( std::istream &stream )
       std::cerr << "Parse failed!!\n";
       throw std::exception();
    }
-   return;
 }
 
 std::ostream& Comp::CDriver::print( std::ostream &stream )
 {
-   auto vizualizer = new NTree::GraphVizPrinterVisitor(stream);
+   auto vizualizer = std::make_unique<NTree::GraphVizPrinterVisitor>(stream);
    vizualizer->Visit(&program);
    return(stream);
 }
