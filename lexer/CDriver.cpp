@@ -67,6 +67,7 @@ void Comp::CDriver::parse_helper( std::istream &stream )
    if( parser->parse() != accept )
    {
       std::cerr << "Parse failed!!\n";
+      throw std::exception();
    }
    return;
 }
