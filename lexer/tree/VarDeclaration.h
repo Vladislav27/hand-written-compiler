@@ -9,9 +9,9 @@ namespace NTree {
     class VarDeclaration : public INode {
     public:
         Type type;
-        const Symbol* id;
+        std::unique_ptr<const Symbol> id;
 
-        inline VarDeclaration(const Type& type, const Symbol* id)
+        VarDeclaration(const Type& type, const Symbol* id)
             : INode(), type(type), id(id) {
         }
         void Accept(IVisitor *visitor) const override;

@@ -14,12 +14,16 @@ namespace NTree {
     class Type {
     public:
         EType type = CLASS;
-        const Symbol* id;
+        const Symbol* id{};
+        /*
+         еcли хочется использовать
+         std::unique_ptr<const Symbol> id;
+         то неявно удаляется конструктор копирования который используется в VarDeclaration
+         */
 
-//        Type& operator=(Type& t)
-//        {
-//            type = t.type;
-//            id = t.id;
-//        }
+        ~Type(){
+            delete id;
+        }
+
     };
 }

@@ -19,7 +19,7 @@ namespace NTree {
         Type returnType;
         EModifier modifier = PUBLIC;
 
-        const NTree::Symbol* id;
+        std::unique_ptr<const Symbol> id;
         unique_ptr<vector<unique_ptr<VarDeclaration>>> args;
 
         unique_ptr<vector<unique_ptr<VarDeclaration>>> localVars;
@@ -28,7 +28,7 @@ namespace NTree {
         unique_ptr<IExpression> returnExpression;
 
         MethodDeclaration(Type type
-            , const NTree::Symbol* name
+            , const Symbol* name
             , vector<unique_ptr<VarDeclaration>>* args
             , vector<unique_ptr<VarDeclaration>>* vars
             , vector<unique_ptr<IStatement>>* statements

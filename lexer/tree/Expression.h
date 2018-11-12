@@ -41,7 +41,7 @@ namespace NTree {
     public:
         int value;
 
-        IntegerLiteralExpression(int value)
+        explicit IntegerLiteralExpression(int value)
             : IExpression(), value(value) {
         }
 
@@ -52,7 +52,7 @@ namespace NTree {
     public:
         bool value;
 
-        BoolLiteralExpression(bool value)
+        explicit BoolLiteralExpression(bool value)
             : IExpression(), value(value) {
         }
 
@@ -61,9 +61,9 @@ namespace NTree {
 
     class IdentifierExpression : public IExpression {
     public:
-        const Symbol* identifier;
+        std::unique_ptr<const Symbol> identifier;
 
-        IdentifierExpression(const Symbol* identifier)
+        explicit IdentifierExpression(const Symbol* identifier)
             : IExpression(), identifier(identifier) {
         }
 
@@ -74,7 +74,7 @@ namespace NTree {
     public:
         unique_ptr<IExpression> expression;
 
-        NegateExpression(IExpression* newExpr)
+        explicit NegateExpression(IExpression* newExpr)
             : IExpression(), expression(newExpr) {
         }
 
@@ -97,7 +97,7 @@ namespace NTree {
     public:
         unique_ptr<IExpression> array;
 
-        inline explicit ArrayLengthExpression(IExpression* expression)
+        explicit ArrayLengthExpression(IExpression* expression)
                 : IExpression(), array(expression) {
         }
 
@@ -107,11 +107,11 @@ namespace NTree {
     class MethodCallExpression : public IExpression {
     public:
         unique_ptr<IExpression> object;
-        const NTree::Symbol* nameId;
+        std::unique_ptr<const Symbol> nameId;
         unique_ptr<vector<unique_ptr<IExpression>>> args;
 
-        inline MethodCallExpression(IExpression* objectExpr
-                , const NTree::Symbol* name
+        MethodCallExpression(IExpression* objectExpr
+                , const Symbol* name
                 , vector<unique_ptr<IExpression>>* argsVector)
                 : IExpression(), object(objectExpr), nameId(name), args(argsVector) {
         }
@@ -131,7 +131,7 @@ namespace NTree {
     public:
         unique_ptr<IExpression> size;
 
-        NewIntArrayExpression(IExpression* expression)
+        explicit NewIntArrayExpression(IExpression* expression)
                 : IExpression(), size(expression) {
         }
 
@@ -140,9 +140,9 @@ namespace NTree {
 
     class NewExpression : public IExpression {
     public:
-        const NTree::Symbol* classId;
+        std::unique_ptr<const Symbol> classId;
 
-        inline NewExpression(const NTree::Symbol* id)
+        explicit NewExpression(const Symbol* id)
                 : IExpression(), classId(id) {
         }
 

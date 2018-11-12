@@ -16,7 +16,7 @@ namespace NTree {
     public:
         unique_ptr<vector<unique_ptr<IStatement>>> statements;
 
-        Statements(vector<unique_ptr<IStatement>>* newStatements)
+        explicit Statements(vector<unique_ptr<IStatement>>* newStatements)
             : IStatement(), statements(newStatements) {
         }
 
@@ -25,7 +25,7 @@ namespace NTree {
 
     class AssignStatement : public IStatement {
     public:
-        const Symbol* lvalue;
+        std::unique_ptr<const Symbol> lvalue;
         unique_ptr<IExpression> rvalue;
 
         AssignStatement(const Symbol* id, IExpression* expression)
@@ -67,7 +67,7 @@ namespace NTree {
     public:
         unique_ptr<IExpression> toPrint;
 
-        inline PrintlnStatement(IExpression* expression)
+        explicit PrintlnStatement(IExpression* expression)
                 : IStatement(), toPrint(expression) {
         }
 
@@ -76,11 +76,11 @@ namespace NTree {
 
     class ArrayElementAssignmentStatement : public IStatement {
     public:
-        const NTree::Symbol* arrayId;
+        std::unique_ptr<const Symbol> arrayId;
         unique_ptr<IExpression> index;
         unique_ptr<IExpression> rvalue;
 
-        inline ArrayElementAssignmentStatement(const NTree::Symbol* id
+        ArrayElementAssignmentStatement(const Symbol* id
                 , IExpression* indexExpr
                 , IExpression* rvalueExpr)
                 : IStatement(), arrayId(id), index(indexExpr), rvalue(rvalueExpr) {

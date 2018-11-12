@@ -11,8 +11,8 @@
 namespace NTree {
     class ClassDeclaration : public INode {
     public:
-        const NTree::Symbol* id;
-        const NTree::Symbol* extendsId;
+        std::unique_ptr<const Symbol> id;
+        std::unique_ptr<const Symbol> extendsId;
 
         unique_ptr<vector<unique_ptr<VarDeclaration>>> varDeclarations;
         unique_ptr<vector<unique_ptr<MethodDeclaration>>> methodDeclarations;
@@ -29,8 +29,8 @@ namespace NTree {
 
     class MainClass : public INode {
     public:
-        const Symbol* nameId;
-        const Symbol* mainArgsId;
+        std::unique_ptr<const Symbol> nameId;
+        std::unique_ptr<const Symbol> mainArgsId;
 
         unique_ptr<IStatement> mainStatement;
 
