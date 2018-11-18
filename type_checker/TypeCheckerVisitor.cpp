@@ -252,7 +252,7 @@ namespace NTypeChecker {
 
     const NSymbolTable::VariableInfo &TypeCheckerVisitor::FindAndCheckIdentifier(const ClassInfo &clazzInfo
             , const MethodInfo &methodInfo
-            , const NSymbolTable::Symbol *id
+            , const NTree::Symbol *id
             , const Location &location) const {
         auto idInfo = symbolTable.FindIdentifier(&clazzInfo, id, &methodInfo);
 

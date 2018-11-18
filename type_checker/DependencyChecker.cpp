@@ -12,7 +12,7 @@ namespace NTypeChecker {
         for (auto it = symbolTable.GetClasses().begin(); it != symbolTable.GetClasses().end(); ++it) {
             NSymbolTable::ClassInfo currentClassInfo = it->second;
 
-            const NUtil::Symbol *superClassId = currentClassInfo.GetSuperClassId();
+            const NTree::Symbol *superClassId = currentClassInfo.GetSuperClassId();
             if (superClassId != nullptr) {
                 if (!symbolTable.HasClass(superClassId)) {
                     throw NSymbolTable::NonDeclaredSymbolException(
@@ -26,7 +26,7 @@ namespace NTypeChecker {
     }
 
     void CheckInClass(const NSymbolTable::SymbolTable& symbolTable,
-        const NUtil::Symbol* superClassId,
+        const NTree::Symbol* superClassId,
         const NSymbolTable::ClassInfo& childClassInfo) {
 
         // получим classInfo для superClassId
@@ -43,7 +43,7 @@ namespace NTypeChecker {
         }
 
         // Дальше нужно запустить обход глубже - в superClass для superClass
-        const NUtil::Symbol *superSuperClassId = superClassInfo.GetSuperClassId();
+        const NTree::Symbol *superSuperClassId = superClassInfo.GetSuperClassId();
         if (superSuperClassId != nullptr) {
             CheckInClass(symbolTable, superSuperClassId, childClassInfo);
         }

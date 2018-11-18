@@ -77,7 +77,7 @@ namespace NTree {
 
     class ArrayElementAssignmentStatement : public IStatement {
     public:
-        std::unique_ptr<const Symbol> arrayId;
+        const Symbol* arrayId;
         unique_ptr<IExpression> index;
         unique_ptr<IExpression> rvalue;
 

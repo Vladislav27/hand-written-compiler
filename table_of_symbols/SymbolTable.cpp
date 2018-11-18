@@ -1,7 +1,7 @@
 #include "SymbolTable.h"
 
 namespace NSymbolTable {
-    bool SymbolTable::HasClass(const NUtil::Symbol* id) const {
+    bool SymbolTable::HasClass(const NTree::Symbol* id) const {
         return classes.find(id) != classes.end();
     }
 
@@ -38,7 +38,7 @@ namespace NSymbolTable {
     }
 
     const VariableInfo *SymbolTable::FindIdentifier(const ClassInfo *clazzInfo,
-                                                    const NSymbolTable::Symbol *id,
+                                                    const NTree::Symbol*id,
                                                     const MethodInfo *methodInfo) const {
         if (methodInfo) {
             if (methodInfo->GetArgsMap().find(id) != methodInfo->GetArgsMap().end()) {
@@ -62,7 +62,7 @@ namespace NSymbolTable {
         return &clazz.GetVarsInfo().at(id);
     }
 
-    const MethodInfo *SymbolTable::FindMethod(const NUtil::Symbol *methodId, const NUtil::Symbol *classId) const {
+    const MethodInfo *SymbolTable::FindMethod(const NTree::Symbol *methodId, const NTree::Symbol *classId) const {
         auto classInfo = GetClassInfo(classId);
 
         while (!classInfo.HasMethod(methodId) && classInfo.GetSuperClassId() != nullptr) {

@@ -108,7 +108,7 @@ namespace NTree {
     class MethodCallExpression : public IExpression {
     public:
         unique_ptr<IExpression> object;
-        std::unique_ptr<const Symbol> nameId;
+        const Symbol* nameId;
         unique_ptr<vector<unique_ptr<IExpression>>> args;
 
         MethodCallExpression(const Location& location

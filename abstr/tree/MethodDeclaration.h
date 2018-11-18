@@ -19,7 +19,7 @@ namespace NTree {
         Type returnType;
         EModifier modifier;
 
-        std::unique_ptr<const Symbol> id;
+        const Symbol* id;
         unique_ptr<vector<unique_ptr<VarDeclaration>>> args;
 
         unique_ptr<vector<unique_ptr<VarDeclaration>>> localVars;
