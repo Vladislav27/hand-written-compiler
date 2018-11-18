@@ -29,7 +29,20 @@ set(SOURCE_FILES
         abstr/tree/Statement.cpp
         abstr/tree/VarDeclaration.cpp
         abstr/tree/MethodDeclaration.cpp
-        abstr/tree/visitors/GraphVizPrinterVisitor.cpp)
+        abstr/tree/visitors/GraphVizPrinterVisitor.cpp
+        table_of_symbols/TypeInfo.cpp
+        table_of_symbols/VariableInfo.cpp
+        table_of_symbols/MethodInfo.cpp
+        table_of_symbols/ClassInfo.cpp
+        table_of_symbols/SymbolTable.cpp
+        table_of_symbols/SymbolTableCreatorVisitor.cpp
+        table_of_symbols/ScopeSwitcher.cpp
+        table_of_symbols/SymbolTableBuilder.cpp
+        table_of_symbols/SymbolTableBuilder.h
+        type_checker/DependencyChecker.cpp
+        type_checker/TypeCheckerVisitor.cpp
+        type_checker/Exceptions.cpp
+        )
 
 add_executable(hand_written_compiler
         main.cpp
