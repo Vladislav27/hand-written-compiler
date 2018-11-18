@@ -29,7 +29,6 @@ public:
    void token();
 
    std::ostream& print(std::ostream &stream);
-private:
 
    void parse_helper( std::istream &stream );
 
