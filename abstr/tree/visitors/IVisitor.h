@@ -1,11 +1,11 @@
 #pragma once
 
-#include <lexer/tree/Common.h>
-#include <lexer/tree/Class.h>
-#include <lexer/tree/Program.h>
-#include <lexer/tree/Expression.h>
-#include <lexer/tree/Statement.h>
-#include <lexer/tree/VarDeclaration.h>
+#include <abstr/tree/Common.h>
+#include <abstr/tree/Class.h>
+#include <abstr/tree/Program.h>
+#include <abstr/tree/Expression.h>
+#include <abstr/tree/Statement.h>
+#include <abstr/tree/VarDeclaration.h>
 
 namespace NTree {
     class IVisitor {

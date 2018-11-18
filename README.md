@@ -4,7 +4,7 @@
 Команда: Машурин Владислав, Егоров Михаил, Комаров Михаил.
 
 Для запуска в CLion:
-    Запускать application "hand_witten_compiler" с аргументами ../lexer/test
+    Запускать application "hand_witten_compiler" с аргументами ../abstr/test
 
 Google Test:
     https://github.com/google/googletest

@@ -13,7 +13,7 @@ namespace NTree {
         Symbol(const Symbol&) = delete;
         void operator=(const Symbol&) = delete;
 
-//        friend class StringInterner;
+        friend class StringInterner;
     private:
 //        explicit Symbol(const std::string&);
 

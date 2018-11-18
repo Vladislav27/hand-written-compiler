@@ -11,25 +11,25 @@ find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
 
 BISON_TARGET(parser
-        lexer/parser.yy
+        abstr/parser.yy
         ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cc)
 FLEX_TARGET(lexer
-        lexer/lexer.l
+        abstr/lexer.l
         ${CMAKE_CURRENT_BINARY_DIR}/lexer.yy.cc)
 ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 
 
 set(SOURCE_FILES
-        lexer/CDriver.cpp
-        lexer/LineHandler.cpp
-        lexer/Symbol.cpp
-        lexer/tree/Class.cpp
-        lexer/tree/Expression.cpp
-        lexer/tree/Program.cpp
-        lexer/tree/Statement.cpp
-        lexer/tree/VarDeclaration.cpp
-        lexer/tree/MethodDeclaration.cpp
-        lexer/tree/visitors/GraphVizPrinterVisitor.cpp)
+        abstr/CDriver.cpp
+        abstr/LineHandler.cpp
+        abstr/Symbol.cpp
+        abstr/tree/Class.cpp
+        abstr/tree/Expression.cpp
+        abstr/tree/Program.cpp
+        abstr/tree/Statement.cpp
+        abstr/tree/VarDeclaration.cpp
+        abstr/tree/MethodDeclaration.cpp
+        abstr/tree/visitors/GraphVizPrinterVisitor.cpp)
 
 add_executable(hand_written_compiler
         main.cpp
@@ -45,7 +45,7 @@ target_include_directories(hand_written_compiler
 target_include_directories(hand_written_compiler
         PRIVATE
         .
-        lexer)
+        abstr)
 
 set_property(TARGET hand_written_compiler
         PROPERTY CXX_STANDARD 14)

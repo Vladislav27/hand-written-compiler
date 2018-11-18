@@ -2,13 +2,13 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "lexer/CDriver.h"
+#include "abstr/CDriver.h"
 
 TEST(UnitTest, test_1) {
     bool flag = false;
     Comp::CDriver driver;
     try {
-        driver.parse("../lexer/good_test");
+        driver.parse("../abstr/good_test");
     } catch (std::exception& e) {
         flag = true;
     }
@@ -19,7 +19,7 @@ TEST(UnitTest, test_2) {
     bool flag = false;
     Comp::CDriver driver;
     try {
-        driver.parse("../lexer/bad_test");
+        driver.parse("../abstr/bad_test");
     } catch (std::exception& e) {
         flag = true;
     }
