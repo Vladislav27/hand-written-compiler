@@ -21,8 +21,8 @@ ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 
 set(SOURCE_FILES
         abstr/CDriver.cpp
-        abstr/LineHandler.cpp
         abstr/Symbol.cpp
+        abstr/Location.cpp
         abstr/tree/Class.cpp
         abstr/tree/Expression.cpp
         abstr/tree/Program.cpp

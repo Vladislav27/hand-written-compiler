@@ -18,7 +18,7 @@ namespace NTree {
 
     class IExpression : public INode {
     public:
-        explicit IExpression() : INode() {
+        explicit IExpression(const Location& location) : INode(location) {
         }
     };
 
@@ -28,10 +28,11 @@ namespace NTree {
         unique_ptr<IExpression> left;
         unique_ptr<IExpression> right;
 
-        BinaryExpression(EBinaryExprType expType
-            , IExpression* leftExp
-            , IExpression* rightExp)
-            : IExpression(), type(expType), left(leftExp), right(rightExp) {
+        BinaryExpression(const Location& location
+                , EBinaryExprType expType
+                , IExpression* leftExp
+                , IExpression* rightExp)
+                : IExpression(location), type(expType), left(leftExp), right(rightExp) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -41,8 +42,8 @@ namespace NTree {
     public:
         int value;
 
-        explicit IntegerLiteralExpression(int value)
-            : IExpression(), value(value) {
+        IntegerLiteralExpression(const Location& location, int value)
+            : IExpression(location), value(value) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -52,8 +53,8 @@ namespace NTree {
     public:
         bool value;
 
-        explicit BoolLiteralExpression(bool value)
-            : IExpression(), value(value) {
+        explicit BoolLiteralExpression(const Location& location, bool value)
+            : IExpression(location), value(value) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -61,10 +62,10 @@ namespace NTree {
 
     class IdentifierExpression : public IExpression {
     public:
-        std::unique_ptr<const Symbol> identifier;
+        const Symbol* identifier;
 
-        explicit IdentifierExpression(const Symbol* identifier)
-            : IExpression(), identifier(identifier) {
+        explicit IdentifierExpression(const Location& location, const Symbol* identifier)
+            : IExpression(location), identifier(identifier) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -74,8 +75,8 @@ namespace NTree {
     public:
         unique_ptr<IExpression> expression;
 
-        explicit NegateExpression(IExpression* newExpr)
-            : IExpression(), expression(newExpr) {
+        explicit NegateExpression(const Location& location, IExpression* newExpr)
+            : IExpression(location), expression(newExpr) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -86,8 +87,8 @@ namespace NTree {
         unique_ptr<IExpression> array;
         unique_ptr<IExpression> index;
 
-        ArrayElementAccessExpression(IExpression* arrayExpr, IExpression* indexExpr)
-                : IExpression(), array(arrayExpr), index(indexExpr) {
+        ArrayElementAccessExpression(const Location& location, IExpression* arrayExpr, IExpression* indexExpr)
+                : IExpression(location), array(arrayExpr), index(indexExpr) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -97,8 +98,8 @@ namespace NTree {
     public:
         unique_ptr<IExpression> array;
 
-        explicit ArrayLengthExpression(IExpression* expression)
-                : IExpression(), array(expression) {
+        ArrayLengthExpression(const Location& location, IExpression* expression)
+                : IExpression(location), array(expression) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -110,10 +111,11 @@ namespace NTree {
         std::unique_ptr<const Symbol> nameId;
         unique_ptr<vector<unique_ptr<IExpression>>> args;
 
-        MethodCallExpression(IExpression* objectExpr
+        MethodCallExpression(const Location& location
+                , IExpression* objectExpr
                 , const Symbol* name
                 , vector<unique_ptr<IExpression>>* argsVector)
-                : IExpression(), object(objectExpr), nameId(name), args(argsVector) {
+                : IExpression(location), object(objectExpr), nameId(name), args(argsVector) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -121,7 +123,8 @@ namespace NTree {
 
     class ThisExpression : public IExpression {
     public:
-        ThisExpression() : IExpression() {
+        explicit ThisExpression(const Location& location)
+            : IExpression(location) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -131,8 +134,8 @@ namespace NTree {
     public:
         unique_ptr<IExpression> size;
 
-        explicit NewIntArrayExpression(IExpression* expression)
-                : IExpression(), size(expression) {
+        NewIntArrayExpression(const Location& location, IExpression* expression)
+                : IExpression(location), size(expression) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -140,10 +143,10 @@ namespace NTree {
 
     class NewExpression : public IExpression {
     public:
-        std::unique_ptr<const Symbol> classId;
+        const Symbol* classId;
 
-        explicit NewExpression(const Symbol* id)
-                : IExpression(), classId(id) {
+        NewExpression(const Location& location, const Symbol* id)
+                : IExpression(location), classId(id) {
         }
 
         void Accept(IVisitor *visitor) const override;

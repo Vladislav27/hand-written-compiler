@@ -17,7 +17,7 @@ namespace NTree {
 
     struct MethodDeclaration : public INode {
         Type returnType;
-        EModifier modifier = PUBLIC;
+        EModifier modifier;
 
         std::unique_ptr<const Symbol> id;
         unique_ptr<vector<unique_ptr<VarDeclaration>>> args;
@@ -27,13 +27,14 @@ namespace NTree {
         
         unique_ptr<IExpression> returnExpression;
 
-        MethodDeclaration(Type type
+        MethodDeclaration(const Location& location
+            , Type type
             , const Symbol* name
             , vector<unique_ptr<VarDeclaration>>* args
             , vector<unique_ptr<VarDeclaration>>* vars
             , vector<unique_ptr<IStatement>>* statements
             , IExpression* expression)
-            : INode(), returnType(type), id(name), args(args), localVars(vars), statements(statements), returnExpression(expression) {
+            : INode(location), returnType(type), id(name), args(args), localVars(vars), statements(statements), returnExpression(expression) {
             }
 
         void Accept(IVisitor *visitor) const override;

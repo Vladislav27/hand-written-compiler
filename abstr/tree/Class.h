@@ -11,17 +11,18 @@
 namespace NTree {
     class ClassDeclaration : public INode {
     public:
-        std::unique_ptr<const Symbol> id;
-        std::unique_ptr<const Symbol> extendsId;
+        const Symbol* id;
+        const Symbol* extendsId;
 
         unique_ptr<vector<unique_ptr<VarDeclaration>>> varDeclarations;
         unique_ptr<vector<unique_ptr<MethodDeclaration>>> methodDeclarations;
 
-        ClassDeclaration(const NTree::Symbol* name
+        ClassDeclaration(const Location& location
+                , const NTree::Symbol* name
                 , const NTree::Symbol* extends
                 , vector<unique_ptr<VarDeclaration>>* vars
                 , vector<unique_ptr<MethodDeclaration>>* methods)
-                : INode(), id(name), extendsId(extends), varDeclarations(vars), methodDeclarations(methods) {
+                : INode(location), id(name), extendsId(extends), varDeclarations(vars), methodDeclarations(methods) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -29,15 +30,16 @@ namespace NTree {
 
     class MainClass : public INode {
     public:
-        std::unique_ptr<const Symbol> nameId;
-        std::unique_ptr<const Symbol> mainArgsId;
+        const Symbol* nameId;
+        const Symbol* mainArgsId;
 
         unique_ptr<IStatement> mainStatement;
 
-        MainClass(const Symbol* name
-            , const Symbol* args
-            , IStatement* statement)
-            : INode(), nameId(name), mainArgsId(args), mainStatement(statement) {
+        MainClass(const Location& location
+                , const Symbol* name
+                , const Symbol* args
+                , IStatement* statement)
+                : INode(location), nameId(name), mainArgsId(args), mainStatement(statement) {
         }
 
         void Accept(IVisitor *visitor) const override;

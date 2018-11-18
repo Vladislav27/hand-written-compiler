@@ -9,10 +9,10 @@ namespace NTree {
     class VarDeclaration : public INode {
     public:
         Type type;
-        std::unique_ptr<const Symbol> id;
+        const Symbol* id;
 
-        VarDeclaration(const Type& type, const Symbol* id)
-            : INode(), type(type), id(id) {
+        VarDeclaration(const Location& location, const Type& type, const Symbol* id)
+            : INode(location), type(type), id(id) {
         }
         void Accept(IVisitor *visitor) const override;
     };

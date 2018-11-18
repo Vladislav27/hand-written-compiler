@@ -2,8 +2,9 @@
 
 #include <string>
 #include <sstream>
+#include <location.hh>
 
-namespace NUtil {
+namespace NTree {
     struct Position {
         uint32_t line;
         uint32_t column;
@@ -23,4 +24,8 @@ namespace NUtil {
             return begin.ToString() + " - " + end.ToString();
         }
     };
+
+    Position ConvertPosition(const Comp::position& pos);
+
+    Location ConvertLocation(const Comp::location& loc);
 }
