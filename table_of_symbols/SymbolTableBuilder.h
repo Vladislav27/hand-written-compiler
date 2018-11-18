@@ -11,8 +11,8 @@
 #include "abstr/tree/VarDeclaration.h"
 
 #include "abstr/tree/Statement.h"
-#include "abstr/Expression.h"
+#include "abstr/tree/Expression.h"
 
 namespace NSymbolTable {
-    SymbolTable BuildSymbolTable(const NSyntaxTree::Program &program);
+    SymbolTable BuildSymbolTable(const NTree::Program &program);
 }

@@ -3,15 +3,15 @@
 #include <cassert>
 
 namespace NSymbolTable {
-    TypeInfo::TypeInfo(NSyntaxTree::EType _type, const Symbol *_classId) noexcept : type(_type) {
-        if (type == NSyntaxTree::CLASS) {
+    TypeInfo::TypeInfo(NTree::EType _type, const Symbol *_classId) noexcept : type(_type) {
+        if (type == NTree::CLASS) {
             assert(_classId != nullptr);
             classId = _classId;
         }
     }
 
     const Symbol* TypeInfo::GetClassId() const {
-        assert(type == NSyntaxTree::CLASS);
+        assert(type == NTree::CLASS);
         return classId;
     }
 
@@ -28,19 +28,19 @@ namespace NSymbolTable {
 
     std::string TypeInfo::ToString() const {
         switch (type) {
-            case NSyntaxTree::INT:
+            case NTree::INT:
             {
                 return "int";
             }
-            case NSyntaxTree::INT_ARRAY:
+            case NTree::INT_ARRAY:
             {
                 return "int[]";
             }
-            case NSyntaxTree::BOOL:
+            case NTree::BOOL:
             {
                 return "boolean";
             }
-            case NSyntaxTree::CLASS:
+            case NTree::CLASS:
             {
                 return classId->String();
             }

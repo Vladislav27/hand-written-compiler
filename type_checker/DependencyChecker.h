@@ -8,6 +8,6 @@ namespace NTypeChecker {
     void CheckDependencies(const NSymbolTable::SymbolTable& symbolTable);
 
     void CheckInClass(const NSymbolTable::SymbolTable& symbolTable,
-        const NUtil::Symbol* superClassId,
+        const NTree::Symbol* superClassId,
         const NSymbolTable::ClassInfo& childClassInfo);
 }

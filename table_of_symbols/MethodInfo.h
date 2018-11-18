@@ -14,24 +14,24 @@
 namespace NSymbolTable {
     class MethodInfo : public IdentifierInfo {
         TypeInfo returnType;
-        NSyntaxTree::EModifier modifier;
+        NTree::EModifier modifier;
         std::vector<VariableInfo> argsInfo;
-        std::unordered_map<const Symbol*, VariableInfo> argsMap;
-        std::unordered_map<const Symbol*, VariableInfo> varsInfo;
+        std::unordered_map<const NTree::Symbol*, VariableInfo> argsMap;
+        std::unordered_map<const NTree::Symbol*, VariableInfo> varsInfo;
 
     public:
-        MethodInfo(const Symbol* _methodId
-                , Location _location
+        MethodInfo(const NTree::Symbol* _methodId
+                , NTree::Location _location
                 , TypeInfo _returnType
-                , NSyntaxTree::EModifier _modifier);
+                , NTree::EModifier _modifier);
 
         void InsertArgumentInfo(const VariableInfo& argInfo);
         void InsertVariableInfo(const VariableInfo& varInfo);
             
         const TypeInfo& GetReturnType() const { return returnType; }
-        NSyntaxTree::EModifier GetModifier() const { return modifier; }
+        NTree::EModifier GetModifier() const { return modifier; }
         const std::vector<VariableInfo> &GetArgsInfo() const { return argsInfo; }
-        const std::unordered_map<const Symbol*, VariableInfo> &GetVarsInfo() const { return varsInfo; }
-        const std::unordered_map<const Symbol*, VariableInfo> &GetArgsMap() const { return argsMap; }
+        const std::unordered_map<const NTree::Symbol*, VariableInfo> &GetVarsInfo() const { return varsInfo; }
+        const std::unordered_map<const NTree::Symbol*, VariableInfo> &GetArgsMap() const { return argsMap; }
     };
 }

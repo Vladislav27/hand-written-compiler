@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace NSyntaxTree {
+namespace NTree {
     class SyntaxError : public std::runtime_error {
         using std::runtime_error::runtime_error;
     public:

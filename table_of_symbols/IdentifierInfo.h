@@ -7,11 +7,11 @@
 namespace NSymbolTable {
     class IdentifierInfo {
     protected:
-        const Symbol* id = nullptr;
-        Location location;
+        const  NTree::Symbol* id = nullptr;
+        NTree::Location location;
 
     public:
-        inline IdentifierInfo(const Symbol* _id, const Location& _location)
+        inline IdentifierInfo(const  NTree::Symbol* _id, const  NTree::Location& _location)
             : id(_id), location(_location) {
         }
 
@@ -21,11 +21,11 @@ namespace NSymbolTable {
         inline IdentifierInfo(IdentifierInfo &&info) = default;
         inline IdentifierInfo &operator=(IdentifierInfo &&info) = default;
 
-        inline const Symbol* GetId() const {
+        inline const  NTree::Symbol* GetId() const {
             return id;
         }
 
-        inline const Location& GetLocation() const {
+        inline const  NTree::Location& GetLocation() const {
             return location;
         }
 
@@ -33,7 +33,7 @@ namespace NSymbolTable {
     };
 
     template<class Map>
-    void CheckIdentifier(const Map& map, const Symbol *newId, const Location &newLocation) {
+    void CheckIdentifier(const Map& map, const  NTree::Symbol *newId, const  NTree::Location &newLocation) {
         if (map.find(newId) != map.end()) {
             throw RedefinitionException(newLocation, newId, map.at(newId).GetLocation());
         }

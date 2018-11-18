@@ -6,7 +6,7 @@
 #include "MethodInfo.h"
 #include "VariableInfo.h"
 
-#include <util/Symbol.h>
+#include <abstr/Symbol.h>
 
 #include <unordered_map>
 
@@ -17,7 +17,7 @@ namespace NSymbolTable {
         const Symbol *superClassId;
 
     public:
-        ClassInfo(const Symbol *_classId, const NSyntaxTree::Location &_location,
+        ClassInfo(const Symbol *_classId, const NTree::Location &_location,
                   const Symbol *_superClassId = nullptr);
 
         void InsertVarInfo(const VariableInfo &varInfo);

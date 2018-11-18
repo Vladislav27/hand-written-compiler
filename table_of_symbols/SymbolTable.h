@@ -11,37 +11,37 @@
 
 namespace NSymbolTable {
     class SymbolTable {
-        std::unordered_map<const Symbol*, ClassInfo> classes;
-        const Symbol* mainClass; // TODO: what should we do with main class?
-        Location mainClassLocation;
+        std::unordered_map<const NTree::Symbol*, ClassInfo> classes;
+        const NTree::Symbol* mainClass; // TODO: what should we do with main class?
+        NTree::Location mainClassLocation;
 
-        std::shared_ptr<StringInterner> interner;
+        std::shared_ptr<NTree::StringInterner> interner;
 
     public:
         SymbolTable() = delete;
 
-        explicit SymbolTable(std::shared_ptr<StringInterner> interner)
+        explicit SymbolTable(std::shared_ptr<NTree::StringInterner> interner)
             : mainClass(nullptr), interner(std::move(interner)) {
         }
 
-        bool HasClass(const Symbol* id) const;
-        const ClassInfo& GetClassInfo(const Symbol* id) const;
+        bool HasClass(const NTree::Symbol* id) const;
+        const ClassInfo& GetClassInfo(const NTree::Symbol* id) const;
 
-        const std::unordered_map<const Symbol*, ClassInfo>& GetClasses() const;
+        const std::unordered_map<const NTree::Symbol*, ClassInfo>& GetClasses() const;
 
         void InsertClassInfo(const ClassInfo&);
-        void SetMainClass(const Symbol*);
-        void SetMainClassLocation(const Location&);
+        void SetMainClass(const NTree::Symbol*);
+        void SetMainClassLocation(const NTree::Location&);
 
-        const Symbol* GetMainClassId() const;
-        const Location& GetMainClassLocation() const;
+        const NTree::Symbol* GetMainClassId() const;
+        const NTree::Location& GetMainClassLocation() const;
 
-        std::shared_ptr<StringInterner> GetInterner() const;
+        std::shared_ptr<NTree::StringInterner> GetInterner() const;
 
         const VariableInfo* FindIdentifier(const ClassInfo *clazzInfo
-                , const NSymbolTable::Symbol *id
+                , const NTree::Symbol *id
                 , const MethodInfo *methodInfo = nullptr) const;
-        const MethodInfo* FindMethod(const Symbol *methodId
-                , const Symbol *classId) const;
+        const MethodInfo* FindMethod(const NTree::Symbol *methodId
+                , const NTree::Symbol *classId) const;
     };
 }

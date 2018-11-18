@@ -3,7 +3,7 @@
 #include "SymbolTableCreatorVisitor.h"
 
 namespace NSymbolTable {
-    SymbolTable BuildSymbolTable(const NSyntaxTree::Program &program) {
+    SymbolTable BuildSymbolTable(const NTree::Program &program) {
         SymbolTable table(program.interner);
 
         SymbolTableCreatorVisitor visitor(table);

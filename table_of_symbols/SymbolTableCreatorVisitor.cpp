@@ -1,7 +1,7 @@
 #include "SymbolTableCreatorVisitor.h"
 
 namespace NSymbolTable {
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::Program *program) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::Program *program) {
         InsertAll(&symbolTable, &SymbolTable::InsertClassInfo, symbolTable.GetClasses(), *program->classes);
 
         program->mainClass->Accept(this);
@@ -13,7 +13,7 @@ namespace NSymbolTable {
         }
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::ClassDeclaration *classDeclaration) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::ClassDeclaration *classDeclaration) {
         auto classInfo = new ClassInfo(classDeclaration->id
             , classDeclaration->location
             , classDeclaration->extendsId);
@@ -24,18 +24,18 @@ namespace NSymbolTable {
         returnValue.reset(classInfo);
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::MainClass *mainClass) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::MainClass *mainClass) {
         symbolTable.SetMainClass(mainClass->nameId);
         symbolTable.SetMainClassLocation(mainClass->location);
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::VarDeclaration *var) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::VarDeclaration *var) {
         auto varInfo = new VariableInfo(var->id, var->location, var->type);
 
         returnValue.reset(varInfo);
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::MethodDeclaration *method) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::MethodDeclaration *method) {
         auto methodInfo = new MethodInfo(method->id, method->location, method->returnType, method->modifier);
 
         InsertAll(methodInfo, &MethodInfo::InsertArgumentInfo, methodInfo->GetArgsMap(), *method->args);
@@ -44,54 +44,54 @@ namespace NSymbolTable {
         returnValue.reset(methodInfo);
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::Statements *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::Statements *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::IfStatement *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::IfStatement *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::WhileStatement *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::WhileStatement *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::PrintlnStatement *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::PrintlnStatement *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::AssignStatement *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::AssignStatement *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::ArrayElementAssignmentStatement *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::ArrayElementAssignmentStatement *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::BinaryExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::BinaryExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::ArrayElementAccessExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::ArrayElementAccessExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::ArrayLengthExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::ArrayLengthExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::MethodCallExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::MethodCallExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::IntegerLiteralExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::IntegerLiteralExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::BoolLiteralExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::BoolLiteralExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::IdentifierExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::IdentifierExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::ThisExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::ThisExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::NewIntArrayExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::NewIntArrayExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::NewExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::NewExpression *) {
     }
 
-    void SymbolTableCreatorVisitor::Visit(const NSyntaxTree::NegateExpression *) {
+    void SymbolTableCreatorVisitor::Visit(const NTree::NegateExpression *) {
     }
 }

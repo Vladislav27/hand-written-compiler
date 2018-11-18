@@ -5,18 +5,18 @@
 #include <abstr/Location.h>
 
 namespace NTypeChecker {
-    class IllegalTypeException: public NSyntaxTree::SyntaxError {
+    class IllegalTypeException: public NTree::SyntaxError {
     public:
-        using NSyntaxTree::SyntaxError::SyntaxError;
+        using NTree::SyntaxError::SyntaxError;
 
-        IllegalTypeException(const NUtil::Location &loc
+        IllegalTypeException(const NTree::Location &loc
             , const NSymbolTable::TypeInfo &found
             , const NSymbolTable::TypeInfo &expected)
             : SyntaxError("Error: expected " + expected.ToString() + ", found " + found.ToString()
                           + " on " + loc.ToString()) {
         }
 
-        IllegalTypeException(const NUtil::Location &loc
+        IllegalTypeException(const NTree::Location &loc
             , const NSymbolTable::TypeInfo &found
             /* expected non POD type */)
             : SyntaxError("Error: expected object of some class, found " + found.ToString()
@@ -24,20 +24,20 @@ namespace NTypeChecker {
         }
     };
 
-    class BadArgumentsException: public NSyntaxTree::SyntaxError {
+    class BadArgumentsException: public NTree::SyntaxError {
     public:
-        using NSyntaxTree::SyntaxError::SyntaxError;
-        explicit BadArgumentsException(const NUtil::Location &loc)
+        using NTree::SyntaxError::SyntaxError;
+        explicit BadArgumentsException(const NTree::Location &loc)
             : SyntaxError("Error: bad arguments on " + loc.ToString()) {
         }
     };
 
-    class PrivateAccessException: public NSyntaxTree::SyntaxError {
+    class PrivateAccessException: public NTree::SyntaxError {
     public:
-        using NSyntaxTree::SyntaxError::SyntaxError;
-        PrivateAccessException(const NUtil::Location &loc
-                , const NSymbolTable::Symbol* methodId
-                , const NSymbolTable::Symbol* classId)
+        using NTree::SyntaxError::SyntaxError;
+        PrivateAccessException(const NTree::Location &loc
+                , const NTree::Symbol* methodId
+                , const NTree::Symbol* classId)
                 : SyntaxError("Unexpected access to private method "
                               + methodId->String() + " of class "
                               + classId->String() + " on "

@@ -9,12 +9,12 @@
 
 namespace NSymbolTable {
     class TypeInfo {
-        NSyntaxTree::EType type;
-        const Symbol *classId;
+        NTree::EType type;
+        const NTree::Symbol *classId;
     public:
-        explicit TypeInfo(NSyntaxTree::EType _type, const Symbol *_classId = nullptr) noexcept;
+        explicit TypeInfo(NTree::EType _type, const NTree::Symbol *_classId = nullptr) noexcept;
 
-        TypeInfo(const NSyntaxTree::Type &_type) : type(_type.type), classId(_type.id) {
+        TypeInfo(const NTree::Type &_type) : type(_type.type), classId(_type.id) {
         }
 
         TypeInfo(const TypeInfo &info) = default;
@@ -23,8 +23,8 @@ namespace NSymbolTable {
         TypeInfo(TypeInfo &&info) = default;
         TypeInfo &operator=(TypeInfo &&info) = default;
 
-        const NSyntaxTree::EType& GetType() const { return type; }
-        const Symbol* GetClassId() const;
+        const NTree::EType& GetType() const { return type; }
+        const NTree::Symbol* GetClassId() const;
 
         bool operator==(const TypeInfo& t) const;
         bool operator!=(const TypeInfo& t) const;
@@ -32,12 +32,12 @@ namespace NSymbolTable {
         std::string ToString() const;
     };
 
-    using NSyntaxTree::INT;
-    using NSyntaxTree::INT_ARRAY;
-    using NSyntaxTree::BOOL;
-    using NSyntaxTree::CLASS;
+    using NTree::INT;
+    using NTree::INT_ARRAY;
+    using NTree::BOOL;
+    using NTree::CLASS;
 
-    const static TypeInfo IntType = TypeInfo(NSyntaxTree::INT);
-    const static TypeInfo IntArrayType = TypeInfo(NSyntaxTree::INT_ARRAY);
-    const static TypeInfo BooleanType = TypeInfo(NSyntaxTree::BOOL);
+    const static TypeInfo IntType = TypeInfo(NTree::INT);
+    const static TypeInfo IntArrayType = TypeInfo(NTree::INT_ARRAY);
+    const static TypeInfo BooleanType = TypeInfo(NTree::BOOL);
 }

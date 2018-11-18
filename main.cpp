@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
-    } catch (NSyntaxTree::SyntaxError &error) {
+    } catch (NTree::SyntaxError &error) {
         std::cerr << error.what() << std::endl;
         return 0;
     }

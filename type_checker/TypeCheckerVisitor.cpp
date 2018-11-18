@@ -7,7 +7,7 @@ namespace NTypeChecker {
 
     using namespace NSymbolTable;
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::Program *program) {
+    void TypeCheckerVisitor::Visit(const NTree::Program *program) {
         program->mainClass->Accept(this);
 
         for (const auto &clazz: *program->classes) {
@@ -15,7 +15,7 @@ namespace NTypeChecker {
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::ClassDeclaration *clazz) {
+    void TypeCheckerVisitor::Visit(const NTree::ClassDeclaration *clazz) {
         switcher.SwitchClass(new ClassInfo(symbolTable.GetClassInfo(clazz->id)));
 
         if (switcher.CurrentClass()->GetSuperClassId() != nullptr) {
@@ -45,14 +45,14 @@ namespace NTypeChecker {
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::MainClass *mainClass) {
+    void TypeCheckerVisitor::Visit(const NTree::MainClass *mainClass) {
         mainClass->mainStatement->Accept(this);
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::VarDeclaration *) {
+    void TypeCheckerVisitor::Visit(const NTree::VarDeclaration *) {
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::MethodDeclaration *method) {
+    void TypeCheckerVisitor::Visit(const NTree::MethodDeclaration *method) {
         switcher.SwitchMethod(new MethodInfo(switcher.CurrentClass()->GetMethodsInfo().at(method->id)));
 
         CheckExpressionType(method->returnExpression.get(), method->returnType);
@@ -83,30 +83,30 @@ namespace NTypeChecker {
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::Statements *statements) {
+    void TypeCheckerVisitor::Visit(const NTree::Statements *statements) {
         for (const auto &statement: *statements->statements) {
             statement->Accept(this);
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::IfStatement *statement) {
+    void TypeCheckerVisitor::Visit(const NTree::IfStatement *statement) {
         CheckExpressionType(statement->condition.get(), BooleanType);
 
         statement->trueStatement->Accept(this);
         statement->falseStatement->Accept(this);
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::WhileStatement *statement) {
+    void TypeCheckerVisitor::Visit(const NTree::WhileStatement *statement) {
         CheckExpressionType(statement->condition.get(), BooleanType);
 
         statement->trueStatement->Accept(this);
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::PrintlnStatement *statement) {
+    void TypeCheckerVisitor::Visit(const NTree::PrintlnStatement *statement) {
         CheckExpressionType(statement->toPrint.get(), IntType);
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::AssignStatement *statement) {
+    void TypeCheckerVisitor::Visit(const NTree::AssignStatement *statement) {
         statement->rvalue->Accept(this);
 
         const auto &variable = FindAndCheckIdentifier(*switcher.CurrentClass(), *switcher.CurrentMethod(), statement->lvalue, statement->location);
@@ -116,7 +116,7 @@ namespace NTypeChecker {
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::ArrayElementAssignmentStatement *statement) {
+    void TypeCheckerVisitor::Visit(const NTree::ArrayElementAssignmentStatement *statement) {
         CheckExpressionType(statement->index.get(), IntType);
         CheckExpressionType(statement->rvalue.get(), IntType);
 
@@ -127,8 +127,8 @@ namespace NTypeChecker {
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::BinaryExpression *expression) {
-        if (expression->type == NSyntaxTree::AND || expression->type == NSyntaxTree::OR) {
+    void TypeCheckerVisitor::Visit(const NTree::BinaryExpression *expression) {
+        if (expression->type == NTree::AND || expression->type == NTree::OR) {
             CheckExpressionType(expression->left.get(), BooleanType);
             CheckExpressionType(expression->right.get(), BooleanType);
             switcher.SwitchExprType(new TypeInfo(BOOL));
@@ -136,27 +136,27 @@ namespace NTypeChecker {
         else {
             CheckExpressionType(expression->left.get(), IntType);
             CheckExpressionType(expression->right.get(), IntType);
-            if (expression->type == NSyntaxTree::LESS)
+            if (expression->type == NTree::LESS)
                 switcher.SwitchExprType(new TypeInfo(BOOL));
             else
                 switcher.SwitchExprType(new TypeInfo(INT));
         }
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::ArrayElementAccessExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::ArrayElementAccessExpression *expression) {
         CheckExpressionType(expression->array.get(), IntArrayType);
         CheckExpressionType(expression->index.get(), IntType);
 
         switcher.SwitchExprType(new TypeInfo(INT));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::ArrayLengthExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::ArrayLengthExpression *expression) {
         CheckExpressionType(expression->array.get(), IntArrayType);
 
         switcher.SwitchExprType(new TypeInfo(INT));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::MethodCallExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::MethodCallExpression *expression) {
         // check object type
         expression->object->Accept(this);
         TypeInfo objectType = *switcher.CurrentExprType();
@@ -182,30 +182,30 @@ namespace NTypeChecker {
         switcher.SwitchExprType(new TypeInfo(method.GetReturnType()));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::IntegerLiteralExpression *) {
+    void TypeCheckerVisitor::Visit(const NTree::IntegerLiteralExpression *) {
         switcher.SwitchExprType(new TypeInfo(INT));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::BoolLiteralExpression *) {
+    void TypeCheckerVisitor::Visit(const NTree::BoolLiteralExpression *) {
         switcher.SwitchExprType(new TypeInfo(BOOL));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::IdentifierExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::IdentifierExpression *expression) {
         const auto &type = FindAndCheckIdentifier(*switcher.CurrentClass(), *switcher.CurrentMethod(), expression->identifier, expression->location);
         switcher.SwitchExprType(new TypeInfo(type.GetTypeInfo()));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::ThisExpression *) {
+    void TypeCheckerVisitor::Visit(const NTree::ThisExpression *) {
         switcher.SwitchExprType(new TypeInfo(CLASS, switcher.CurrentClass()->GetId()));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::NewIntArrayExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::NewIntArrayExpression *expression) {
         CheckExpressionType(expression->size.get(), IntType);
 
         switcher.SwitchExprType(new TypeInfo(INT_ARRAY));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::NewExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::NewExpression *expression) {
         if (!symbolTable.HasClass(expression->classId)) {
             throw NSymbolTable::NonDeclaredSymbolException(expression->location, expression->classId);
         }
@@ -213,7 +213,7 @@ namespace NTypeChecker {
         switcher.SwitchExprType(new TypeInfo(CLASS, expression->classId));
     }
 
-    void TypeCheckerVisitor::Visit(const NSyntaxTree::NegateExpression *expression) {
+    void TypeCheckerVisitor::Visit(const NTree::NegateExpression *expression) {
         CheckExpressionType(expression->expression.get(), BooleanType);
 
         switcher.SwitchExprType(new NSymbolTable::TypeInfo(NSymbolTable::BOOL));
@@ -236,14 +236,14 @@ namespace NTypeChecker {
             throw NonDeclaredSymbolException(location, methodId);
         }
 
-        if (method->GetModifier() == NSyntaxTree::PRIVATE && classInfo.GetId() != switcher.CurrentClass()->GetId()) {
+        if (method->GetModifier() == NTree::PRIVATE && classInfo.GetId() != switcher.CurrentClass()->GetId()) {
             throw PrivateAccessException(location, methodId, classInfo.GetId());
         }
 
         return *method;
     }
 
-    void TypeCheckerVisitor::CheckExpressionType(const NSyntaxTree::IExpression *expression, const TypeInfo &expected) {
+    void TypeCheckerVisitor::CheckExpressionType(const NTree::IExpression *expression, const TypeInfo &expected) {
         expression->Accept(this);
         if (*switcher.CurrentExprType() != expected) {
             throw IllegalTypeException(expression->location, *switcher.CurrentExprType(), expected);

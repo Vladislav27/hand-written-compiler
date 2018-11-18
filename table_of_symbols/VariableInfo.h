@@ -12,7 +12,7 @@ namespace NSymbolTable {
         TypeInfo typeInfo;
 
     public:
-        VariableInfo(const Symbol* _varName, const Location& _location, const TypeInfo& _typeInfo);
+        VariableInfo(const NTree::Symbol* _varName, const NTree::Location& _location, const TypeInfo& _typeInfo);
 
         VariableInfo(const VariableInfo &info) = default;
         VariableInfo &operator=(const VariableInfo &info) = default;

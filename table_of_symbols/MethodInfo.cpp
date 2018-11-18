@@ -4,7 +4,7 @@ namespace NSymbolTable {
     MethodInfo::MethodInfo(const Symbol* _methodId
         , Location _location
         , TypeInfo _returnType
-        , NSyntaxTree::EModifier _modifier)
+        , NTree::EModifier _modifier)
         : IdentifierInfo(_methodId, _location), returnType(_returnType), modifier(_modifier) {
     }
 

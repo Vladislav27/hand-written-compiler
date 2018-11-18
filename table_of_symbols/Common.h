@@ -5,8 +5,8 @@
 #include <abstr/StringInterner.h>
 
 namespace NSymbolTable {
-    using NUtil::Symbol;
-    using NUtil::StringInterner;
+    using NTree::Symbol;
+    using NTree::StringInterner;
 
-    using NUtil::Location;
+    using NTree::Location;
 }

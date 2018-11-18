@@ -1,7 +1,7 @@
 #include "ClassInfo.h"
 
 namespace NSymbolTable {
-    ClassInfo::ClassInfo(const Symbol* _classId, const NSyntaxTree::Location& _location, const Symbol* _superClassId)
+    ClassInfo::ClassInfo(const Symbol* _classId, const NTree::Location& _location, const Symbol* _superClassId)
         : IdentifierInfo(_classId, _location), superClassId(_superClassId) {
     }
 
