@@ -8,7 +8,7 @@
 namespace NTree {
     class IStatement : public INode {
     public:
-        IStatement() : INode() {
+        IStatement(const Location& location) : INode(location) {
         }
     };
 
@@ -16,8 +16,8 @@ namespace NTree {
     public:
         unique_ptr<vector<unique_ptr<IStatement>>> statements;
 
-        explicit Statements(vector<unique_ptr<IStatement>>* newStatements)
-            : IStatement(), statements(newStatements) {
+        Statements(const Location& location, vector<unique_ptr<IStatement>>* newStatements)
+            : IStatement(location), statements(newStatements) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -25,11 +25,11 @@ namespace NTree {
 
     class AssignStatement : public IStatement {
     public:
-        std::unique_ptr<const Symbol> lvalue;
+        const Symbol* lvalue;
         unique_ptr<IExpression> rvalue;
 
-        AssignStatement(const Symbol* id, IExpression* expression)
-            : IStatement(), lvalue(id), rvalue(expression) {
+        AssignStatement(const Location& location, const Symbol* id, IExpression* expression)
+            : IStatement(location), lvalue(id), rvalue(expression) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -42,10 +42,11 @@ namespace NTree {
         unique_ptr<IStatement> trueStatement;
         unique_ptr<IStatement> falseStatement;
 
-        IfStatement(IExpression* expression
+        IfStatement(const Location& location
+                , IExpression* expression
                 , IStatement* newTrueStatement
                 , IStatement* newFalseStatement)
-                : IStatement(), condition(expression), trueStatement(newTrueStatement), falseStatement(newFalseStatement) {
+                : IStatement(location), condition(expression), trueStatement(newTrueStatement), falseStatement(newFalseStatement) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -56,8 +57,8 @@ namespace NTree {
         unique_ptr<IExpression> condition;
         unique_ptr<IStatement> trueStatement;
 
-        WhileStatement(IExpression* expression, IStatement* statement)
-                : IStatement(), condition(expression), trueStatement(statement) {
+        WhileStatement(const Location& location, IExpression* expression, IStatement* statement)
+                : IStatement(location), condition(expression), trueStatement(statement) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -67,8 +68,8 @@ namespace NTree {
     public:
         unique_ptr<IExpression> toPrint;
 
-        explicit PrintlnStatement(IExpression* expression)
-                : IStatement(), toPrint(expression) {
+        explicit PrintlnStatement(const Location& location, IExpression* expression)
+                : IStatement(location), toPrint(expression) {
         }
 
         void Accept(IVisitor *visitor) const override;
@@ -76,14 +77,15 @@ namespace NTree {
 
     class ArrayElementAssignmentStatement : public IStatement {
     public:
-        std::unique_ptr<const Symbol> arrayId;
+        const Symbol* arrayId;
         unique_ptr<IExpression> index;
         unique_ptr<IExpression> rvalue;
 
-        ArrayElementAssignmentStatement(const Symbol* id
+        ArrayElementAssignmentStatement(const Location& location
+                , const Symbol* id
                 , IExpression* indexExpr
                 , IExpression* rvalueExpr)
-                : IStatement(), arrayId(id), index(indexExpr), rvalue(rvalueExpr) {
+                : IStatement(location), arrayId(id), index(indexExpr), rvalue(rvalueExpr) {
         }
 
         void Accept(IVisitor *visitor) const override;

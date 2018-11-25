@@ -33,7 +33,9 @@ void Comp::CDriver::parse_helper( std::istream &stream )
 {
    try
    {
-      scanner = std::make_unique<Comp::CScanner>(&stream);
+       std::shared_ptr<NTree::StringInterner> interner(new NTree::StringInterner());
+       scanner = std::make_unique<Comp::CScanner>(&stream, interner);
+       program.interner = interner;
    }
    catch( std::bad_alloc &ba )
    {

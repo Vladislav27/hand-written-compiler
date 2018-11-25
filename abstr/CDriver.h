@@ -7,6 +7,7 @@
 #include "CScanner.h"
 #include "parser.tab.hh"
 #include "abstr/tree/visitors/GraphVizPrinterVisitor.h"
+#include "StringInterner.h"
 
 namespace Comp{
 
@@ -29,7 +30,6 @@ public:
    void token();
 
    std::ostream& print(std::ostream &stream);
-private:
 
    void parse_helper( std::istream &stream );
 
