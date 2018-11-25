@@ -35,8 +35,8 @@ class BBS{
 	int aux05 ;
 	int aux06 ;
 	int aux07 ;
-	int j ;
-	int t ;
+	boolean j ;
+	boolean t ;
 	i = size - 1 ;
 	aux02 = 0 - 1 ;
 	while (aux02 < i) {

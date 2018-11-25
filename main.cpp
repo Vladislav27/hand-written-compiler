@@ -8,22 +8,15 @@
 #include "abstr/CDriver.h"
 
 int main(int argc, char** argv) {
-    try {
-        Comp::CDriver driver;
-        driver.parse(argv[1]);
+    Comp::CDriver driver;
+    driver.parse(argv[1]);
 
-        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-        NTypeChecker::CheckDependencies(table);
+    NTypeChecker::CheckDependencies(table);
 
-        NTypeChecker::TypeCheckerVisitor checker(table);
-        checker.Visit(&driver.program);
-    } catch (NTree::SyntaxError &error) {
-        std::cerr << error.what() << std::endl;
-        return 0;
-    }
-
-    std::cout << "OK" << std::endl;
+    NTypeChecker::TypeCheckerVisitor checker(table);
+    checker.Visit(&driver.program);
 
     return 0;
 }
