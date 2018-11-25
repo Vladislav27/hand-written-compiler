@@ -5,6 +5,7 @@
 /* Implementation of yyFlexScanner */
 #include "CScanner.h"
 #include "Symbol.h"
+#include "StringInterner.h"
 #undef  YY_DECL
 #define YY_DECL int Comp::CScanner::yylex( Comp::CParser::semantic_type * const lval, Comp::CParser::location_type *loc )
 
@@ -29,7 +30,7 @@ NUMBER      {DIGIT}{DIGIT}*
 
 WS          [ \t]
 NEWLINE     \n
-COMMENT     "//"[^\n]*"\n"|"/*".*"*/"
+COMMENT     "//"[^\n]*"\n"
 STRING      \"[^\n"]+\"
 SEMI        ";"
 COMMA       ","
@@ -244,8 +245,7 @@ LENGTH      "length"
                 }
 {ID}            {
                     std::cout << "ID(" << YYText() << ")" << std::endl;
-                    std::string s = YYText();
-                    const NTree::Symbol* str = new NTree::Symbol(s);
+                    const NTree::Symbol* str = interner->GetIntern(YYText());
                     lval->build<const NTree::Symbol*>(str);
                     return( token::ID );
                 }
@@ -254,6 +254,8 @@ LENGTH      "length"
 {NEWLINE}       {
                     loc->lines();
                 }
-{COMMENT}       /* skip all comments */
+{COMMENT}       {
+                    loc->lines();
+                }
 
 %%
