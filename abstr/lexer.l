@@ -68,6 +68,8 @@ NEW         "new"
 RETURN      "return"
 MAIN        "main"
 PRINT       "System.out.println"
+VOID        "void"
+STATIC      "static"
 ID          ({LITTER}|_)({LITTER}|{DIGIT}|_)*
 
 NOT         "!"
@@ -242,6 +244,14 @@ LENGTH      "length"
 {LENGTH}        {
                     std::cout << "LENGTH" << std::endl;
                     return token::LENGTH;
+                }
+{VOID}           {
+                    std::cout << "VOID" << std::endl;
+                    return token::VOID;
+                }
+{STATIC}           {
+                    std::cout << "STATIC" << std::endl;
+                    return token::STATIC;
                 }
 {ID}            {
                     std::cout << "ID(" << YYText() << ")" << std::endl;
