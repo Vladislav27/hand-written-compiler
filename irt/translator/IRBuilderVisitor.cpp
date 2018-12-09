@@ -25,7 +25,6 @@ namespace NIRTree {
 
         const auto id = symbolTable.GetInterner()->GetIntern(clazz->nameId->String() + "@MAIN");
         auto subtree = SubtreePtr(mainSubtree.release());
-        auto x = std::move(subtree);
 
         forest.insert(std::make_pair(id, std::move(subtree)));
 
