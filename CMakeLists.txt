@@ -43,6 +43,19 @@ set(SOURCE_FILES
         type_checker/DependencyChecker.cpp
         type_checker/TypeCheckerVisitor.cpp
         type_checker/Exceptions.cpp
+        irt/activation_records/X86/X86MiniJavaClassStruct.cpp
+        irt/activation_records/X86/X86MiniJavaFrame.cpp
+        irt/activation_records/ArrayStruct.cpp
+        irt/activation_records/InFrameAccess.cpp
+        irt/activation_records/InRegAccess.cpp
+        irt/Accept.cpp
+        irt/DotPrinter.cpp
+        irt/Label.cpp
+        irt/expressions/Temp.cpp
+        irt/translator/Canoniser.cpp
+        irt/translator/IRBuilderVisitor.cpp
+        irt/translator/IRPrettyPrinter.cpp
+        irt/translator/X86IRBuilder.cpp
         )
 
 add_executable(hand_written_compiler
