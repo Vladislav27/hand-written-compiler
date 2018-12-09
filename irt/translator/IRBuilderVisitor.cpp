@@ -25,7 +25,10 @@ namespace NIRTree {
 
         const auto id = symbolTable.GetInterner()->GetIntern(clazz->nameId->String() + "@MAIN");
         auto subtree = SubtreePtr(mainSubtree.release());
-        forest.insert({id, std::move(subtree)});
+        auto x = std::move(subtree);
+
+        forest.insert(std::make_pair(id, std::move(subtree)));
+
     }
 
     void IRBuilderVisitor::Visit(const NTree::ClassDeclaration *clazz) {
@@ -37,7 +40,7 @@ namespace NIRTree {
             const auto id = symbolTable.GetInterner()->GetIntern(clazz->id->String()
                                                                  + "@" + method->id->String());
             auto subtree = SubtreePtr(mainSubtree.release());
-            forest.insert({id, std::move(subtree)});
+            forest.insert(std::make_pair(id, std::move(subtree)));
         }
     }
 
