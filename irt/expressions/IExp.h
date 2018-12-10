@@ -7,7 +7,5 @@ namespace NIRTree {
         IExp(const Location &location = Location()) : INode(location) {
         }
 
-        virtual bool IsCommutative() const = 0;
-        virtual bool IsAbsolutelyCommutative() const = 0;
     };
 }

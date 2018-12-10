@@ -52,7 +52,6 @@ set(SOURCE_FILES
         irt/DotPrinter.cpp
         irt/Label.cpp
         irt/expressions/Temp.cpp
-        irt/translator/Canoniser.cpp
         irt/translator/IRBuilderVisitor.cpp
         irt/translator/IRPrettyPrinter.cpp
         irt/translator/X86IRBuilder.cpp

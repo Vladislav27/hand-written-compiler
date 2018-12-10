@@ -17,7 +17,6 @@ namespace NIRTree {
 
         void Accept(IIRVisitor *visitor) const override;
 
-        void Accept(IIRMutableVisitor *visitor) override;
 
         void AppendStm(std::unique_ptr<IStm> appendingStm) {
             if (appendingStm) {
@@ -29,7 +28,5 @@ namespace NIRTree {
             }
         }
 
-        bool IsCommutative() const override { return false; }
-        bool IsAbsolutelyCommutative() const override { return false; }
     };
 }

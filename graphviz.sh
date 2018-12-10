@@ -1,1 +1,1 @@
-dot -Tpng cmake-build-debug/graph.gv -o graph-img/graph.png
+dot -Tpng cmake-build-debug/graph_irt.gv -o graph-img/graph.png

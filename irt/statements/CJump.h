@@ -25,7 +25,6 @@ namespace NIRTree {
         }
 
         void Accept(IIRVisitor *visitor) const override;
-        void Accept(IIRMutableVisitor *visitor) override;
 
         std::unique_ptr<IExp> leftExpr;
         std::unique_ptr<IExp> rightExpr;
