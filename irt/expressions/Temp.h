@@ -12,7 +12,6 @@ namespace NIRTree {
             NAME
         };
 
-        static const int TempHolderLocalId = 9000;
 
         const int id;
 
@@ -24,10 +23,7 @@ namespace NIRTree {
         explicit Temp(const std::string &name, const Location &location = {}, int uniqueId = -1);
 
         void Accept(IIRVisitor *visitor) const override;
-        void Accept(IIRMutableVisitor *visitor) override;
 
-        bool IsCommutative() const override { return true; }
-        bool IsAbsolutelyCommutative() const override { return localId == TempHolderLocalId; }
     private:
         static int counter;
         bool unique;

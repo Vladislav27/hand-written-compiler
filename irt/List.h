@@ -18,10 +18,7 @@ namespace NIRTree {
         }
             
         void Accept(IIRVisitor *visitor) const override;
-        void Accept(IIRMutableVisitor *visitor) override;
 
-        virtual bool IsCommutative() const { return false; }
-        virtual bool IsAbsolutelyCommutative() const { return false; }
     };
 
     using ExpList = List<IExp>;
