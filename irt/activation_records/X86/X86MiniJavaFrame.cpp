@@ -7,6 +7,7 @@ namespace NIRTree {
     const int X86MiniJavaFrame::MaxInReg = 4;
 
     void X86MiniJavaFrame::AddLocal(const NSymbolTable::VariableInfo &variable) {
+        std::cout << "Added local id: " << variable.GetId()->String() << std::endl;
         idToInfo.insert({variable.GetId(), variable});
 
         // TODO: 4 is typeSize
@@ -16,6 +17,7 @@ namespace NIRTree {
     }
 
     void X86MiniJavaFrame::AddFormal(const NSymbolTable::VariableInfo &variable) {
+        std::cout << "Added formal id: " << variable.GetId()->String() << std::endl;
         formalIds.push_back(variable.GetId());
 
         // TODO: 4 is typeSize
@@ -33,6 +35,7 @@ namespace NIRTree {
     }
 
     std::shared_ptr<const IAccess> X86MiniJavaFrame::GetFormalOrLocal(const NTree::Symbol *id) const {
+        std::cout << "id: " << id->String() << std::endl;
         return idToAccess.at(id);
     }
 
@@ -56,6 +59,11 @@ namespace NIRTree {
         for (const auto &id2info: methodInfo.GetVarsInfo()) {
             AddLocal(id2info.second);
         }
+
+        for (const auto &id2info: classInfo.GetVarsInfo()) {
+            AddFormal(id2info.second);
+        }
+
         AddAddressExit();
         AddAddressReturnValue(methodInfo.GetReturnType());
     }

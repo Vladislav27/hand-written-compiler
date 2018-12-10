@@ -278,6 +278,7 @@ namespace NIRTree {
         frame.reset(frameBuilder->GetFrame(*switcher.CurrentClass(), methodInfo, symbolTable));
         IStm* stm = nullptr;
         if( !node->statements->empty() ) {
+
             for (const auto &statement: *node->statements) {
                 statement->Accept(this);
             }
