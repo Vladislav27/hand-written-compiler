@@ -93,3 +93,12 @@ include_directories(googletest-master/googletest/include/ . ${CMAKE_CURRENT_BINA
 add_executable(exe UnitTest.cpp ${SOURCE_FILES} ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
 target_link_libraries(exe ${GTEST_LIBRARIES} gtest gtest_main)
 target_link_libraries(exe ${GTEST_BOTH_LIBRARIES})
+
+target_include_directories(exe
+        PRIVATE
+        .
+        ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(exe
+        PRIVATE
+        .
+        abstr)
