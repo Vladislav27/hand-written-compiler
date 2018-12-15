@@ -1,0 +1,5 @@
+uninitMemberVar:table_of_symbols/SymbolTable.h:23
+noExplicitConstructor:table_of_symbols/TypeInfo.h:17
+unsignedLessThanZero:lex.yy.cc
+cstyleCast:irt/translator/IRPrettyPrinter.cpp:7
+unusedPrivateFunction:irt/activation_records/X86/X86MiniJavaFrame.h:19

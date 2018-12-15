@@ -8,7 +8,7 @@
 namespace NTree {
     class IStatement : public INode {
     public:
-        IStatement(const Location& location) : INode(location) {
+        explicit IStatement(const Location& location) : INode(location) {
         }
     };
 

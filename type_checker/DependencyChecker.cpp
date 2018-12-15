@@ -39,7 +39,6 @@ namespace NTypeChecker {
         if (superClassName == childClassName) {
             throw NSymbolTable::CyclicDependencyException(childClassInfo.GetLocation(),
                                                           childClassInfo.GetId());
-            return;
         }
 
         // Дальше нужно запустить обход глубже - в superClass для superClass
