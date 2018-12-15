@@ -11,18 +11,18 @@ namespace NIRTree {
     }
 
     InRegAccess::InRegAccess(IAccess::ERecordsType _type, int _size, const std::string &name)
-            : size(_size), recordType(_type), name(name), id(-1), temp(new Temp(ArPrefix + name)) {
+            : recordType(_type), size(_size), name(name), id(-1), temp(new Temp(ArPrefix + name)) {
     }
 
     InRegAccess::InRegAccess(IAccess::ERecordsType _type, int _size, int id)
-            : size(_size), recordType(_type), name(""), id(id), temp(new Temp(id)) {
+            : recordType(_type), size(_size), name(""), id(id), temp(new Temp(id)) {
     }
 
     InRegAccess::InRegAccess(const InRegAccess& other):
             recordType(other.recordType),
             size(other.size),
-            id(other.id),
             name(other.name),
+            id(other.id),
             temp(new Temp(*other.temp.get())) {
     }
 }
