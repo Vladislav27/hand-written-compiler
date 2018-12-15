@@ -33,7 +33,7 @@ namespace NSymbolTable {
             }
         }
     public:
-        inline explicit SymbolTableCreatorVisitor(SymbolTable &table)
+        explicit SymbolTableCreatorVisitor(SymbolTable &table)
                 : symbolTable(table) {
         }
 

@@ -224,7 +224,7 @@ TEST(TestIRT, test_5) {
 
     outIrt.close();
 }
-
+/*
 TEST(TestTypeCheckerGoodSamples, test_1) {
     bool flag = false;
     try {
@@ -368,7 +368,7 @@ TEST(TestTypeCheckerGoodSamples, test_8) {
     }
     EXPECT_FALSE(flag);
 }
-
+*/
 TEST(TestTypeCheckerBadSamples, test_1) {
     bool flag = false;
     try {

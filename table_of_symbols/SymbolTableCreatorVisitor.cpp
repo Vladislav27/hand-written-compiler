@@ -7,9 +7,10 @@ namespace NSymbolTable {
         program->mainClass->Accept(this);
 
         if (symbolTable.HasClass(program->mainClass->nameId)) {
-            throw RedefinitionException(symbolTable.GetClasses().at(program->mainClass->nameId).GetLocation()
+            auto e = new RedefinitionException(symbolTable.GetClasses().at(program->mainClass->nameId).GetLocation()
                     , program->mainClass->nameId
                     , symbolTable.GetMainClassLocation());
+            std::cerr << e->what() << std::endl;
         }
     }
 

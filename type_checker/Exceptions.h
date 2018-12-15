@@ -17,8 +17,7 @@ namespace NTypeChecker {
         }
 
         IllegalTypeException(const NTree::Location &loc
-            , const NSymbolTable::TypeInfo &found
-            /* expected non POD type */)
+            , const NSymbolTable::TypeInfo &found)
             : SyntaxError("Error: expected object of some class, found " + found.ToString()
                           + " on " + loc.ToString()) {
         }

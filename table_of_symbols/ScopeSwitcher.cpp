@@ -3,8 +3,8 @@
 
 namespace NSymbolTable {
 
-    void ScopeSwitcher::SwitchClass(ClassInfo *clazz) {
-        currentClass.reset(clazz);
+    void ScopeSwitcher::SwitchClass(ClassInfo *classInfo) {
+        currentClass.reset(classInfo);
     }
 
     void ScopeSwitcher::SwitchMethod(MethodInfo *method) {

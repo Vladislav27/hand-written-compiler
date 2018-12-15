@@ -7,7 +7,7 @@
 namespace NSymbolTable {
     class ScopeSwitcher {
     public:
-        void SwitchClass(ClassInfo *clazz);
+        void SwitchClass(ClassInfo *classInfo);
         void SwitchMethod(MethodInfo *method);
         void SwitchExprType(TypeInfo *type);
 
