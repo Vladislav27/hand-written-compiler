@@ -12,7 +12,7 @@
 namespace NSymbolTable {
     class SymbolTable {
         std::unordered_map<const NTree::Symbol*, ClassInfo> classes;
-        const NTree::Symbol* mainClass; // TODO: what should we do with main class?
+        const NTree::Symbol* mainClass;
         NTree::Location mainClassLocation;
 
         std::shared_ptr<NTree::StringInterner> interner;
@@ -38,7 +38,7 @@ namespace NSymbolTable {
 
         std::shared_ptr<NTree::StringInterner> GetInterner() const;
 
-        const VariableInfo* FindIdentifier(const ClassInfo *clazzInfo
+        const VariableInfo* FindIdentifier(const ClassInfo *classInfo
                 , const NTree::Symbol *id
                 , const MethodInfo *methodInfo = nullptr) const;
         const MethodInfo* FindMethod(const NTree::Symbol *methodId

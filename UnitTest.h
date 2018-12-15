@@ -5,6 +5,7 @@
 #include <type_checker/DependencyChecker.h>
 #include <type_checker/TypeCheckerVisitor.h>
 #include <type_checker/Exceptions.h>
+#include <table_of_symbols/Exceptions.h>
 
 #include <fstream>
 #include <iostream>
@@ -384,6 +385,9 @@ TEST(TestTypeCheckerBadSamples, test_1) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -399,7 +403,11 @@ TEST(TestTypeCheckerBadSamples, test_2) {
 
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
-    } catch(std::exception& e) {
+    }
+    catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -420,6 +428,9 @@ TEST(TestTypeCheckerBadSamples, test_3) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -436,6 +447,9 @@ TEST(TestTypeCheckerBadSamples, test_4) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -456,6 +470,9 @@ TEST(TestTypeCheckerBadSamples, test_5) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -472,6 +489,9 @@ TEST(TestTypeCheckerBadSamples, test_6) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -492,6 +512,9 @@ TEST(TestTypeCheckerBadSamples, test_7) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -508,6 +531,9 @@ TEST(TestTypeCheckerBadSamples, test_8) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -528,6 +554,9 @@ TEST(TestTypeCheckerBadSamples, test_9) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -544,6 +573,9 @@ TEST(TestTypeCheckerBadSamples, test_10) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -564,6 +596,9 @@ TEST(TestTypeCheckerBadSamples, test_11) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -580,6 +615,9 @@ TEST(TestTypeCheckerBadSamples, test_12) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -600,6 +638,9 @@ TEST(TestTypeCheckerBadSamples, test_13) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -616,6 +657,9 @@ TEST(TestTypeCheckerBadSamples, test_14) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -636,6 +680,9 @@ TEST(TestTypeCheckerBadSamples, test_15) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -652,6 +699,9 @@ TEST(TestTypeCheckerBadSamples, test_16) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -672,6 +722,9 @@ TEST(TestTypeCheckerBadSamples, test_17) {
     } catch(NTree::SyntaxError& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -688,6 +741,9 @@ TEST(TestTypeCheckerBadSamples, test_18) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
@@ -708,6 +764,9 @@ TEST(TestTypeCheckerBadSamples, test_19) {
     } catch(std::exception& e) {
         flag = true;
     }
+    catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -724,6 +783,9 @@ TEST(TestTypeCheckerBadSamples, test_20) {
         NTypeChecker::TypeCheckerVisitor checker(table);
         checker.Visit(&driver.program);
     } catch(std::exception& e) {
+        flag = true;
+    }
+    catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
