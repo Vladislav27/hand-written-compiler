@@ -4,6 +4,7 @@
 #include <table_of_symbols/SymbolTableBuilder.h>
 #include <type_checker/DependencyChecker.h>
 #include <type_checker/TypeCheckerVisitor.h>
+#include <type_checker/Exceptions.h>
 
 #include <fstream>
 #include <iostream>
@@ -224,98 +225,524 @@ TEST(TestIRT, test_5) {
     outIrt.close();
 }
 
-TEST(TestTypeChecker, test_1) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/Factorial.java");
+TEST(TestTypeCheckerGoodSamples, test_1) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/Factorial.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_2) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/QuickSort.java");
+TEST(TestTypeCheckerGoodSamples, test_2) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/QuickSort.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_3) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/LinearSearch.java");
+TEST(TestTypeCheckerGoodSamples, test_3) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/LinearSearch.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_4) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/BubbleSort.java");
+TEST(TestTypeCheckerGoodSamples, test_4) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/BubbleSort.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+        EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_5) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/BinarySearch.java");
+TEST(TestTypeCheckerGoodSamples, test_5) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/BinarySearch.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+            EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_6) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/TreeVisitor.java");
+TEST(TestTypeCheckerGoodSamples, test_6) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/TreeVisitor.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_7) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/LinkedList.java");
+TEST(TestTypeCheckerGoodSamples, test_7) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/LinkedList.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_FALSE(flag);
 }
 
-TEST(TestTypeChecker, test_8) {
-    Comp::CDriver driver;
-    driver.parse("../Samples/BinaryTree.java");
+TEST(TestTypeCheckerGoodSamples, test_8) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../Samples/BinaryTree.java");
 
-    NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
-    NTypeChecker::CheckDependencies(table);
+        NTypeChecker::CheckDependencies(table);
 
-    NTypeChecker::TypeCheckerVisitor checker(table);
-    checker.Visit(&driver.program);
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_FALSE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_1) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_1a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_2) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_2a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_3) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_3a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_4) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_3b.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_5) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_4a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_6) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_4b.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_7) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_5a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_8) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_6a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_9) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_7b.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_10) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_7c.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_11) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_8a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_12) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_9a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_13) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_9a_2.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_14) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_11a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_15) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_12b.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_16) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_13a.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_17) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_13b.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_18) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_13c.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_19) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_13d(optional).java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_20) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/TC_bonus1.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
+}
+
+TEST(TestTypeCheckerBadSamples, test_21) {
+    bool flag = false;
+    try {
+        Comp::CDriver driver;
+        driver.parse("../BadSamples/LC_1.java");
+
+        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
+
+        NTypeChecker::CheckDependencies(table);
+
+        NTypeChecker::TypeCheckerVisitor checker(table);
+        checker.Visit(&driver.program);
+    } catch(NTree::SyntaxError& e) {
+        flag = true;
+    }
+    EXPECT_TRUE(flag);
 }
