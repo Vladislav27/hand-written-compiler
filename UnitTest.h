@@ -620,6 +620,9 @@ TEST(TestTypeCheckerBadSamples, test_12) {
     catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
+    catch(std::exception& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -639,6 +642,9 @@ TEST(TestTypeCheckerBadSamples, test_13) {
         flag = true;
     }
     catch (NSymbolTable::SymbolTableException& e) {
+        flag = true;
+    }
+    catch(std::exception& e) {
         flag = true;
     }
     EXPECT_TRUE(flag);
