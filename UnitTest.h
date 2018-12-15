@@ -773,6 +773,9 @@ TEST(TestTypeCheckerBadSamples, test_19) {
     catch (NSymbolTable::SymbolTableException& e) {
         flag = true;
     }
+    catch(std::exception& e) {
+        flag = true;
+    }
     EXPECT_TRUE(flag);
 }
 
@@ -781,27 +784,6 @@ TEST(TestTypeCheckerBadSamples, test_20) {
     try {
         Comp::CDriver driver;
         driver.parse("../BadSamples/TC_bonus1.java");
-
-        NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
-
-        NTypeChecker::CheckDependencies(table);
-
-        NTypeChecker::TypeCheckerVisitor checker(table);
-        checker.Visit(&driver.program);
-    } catch(NTree::SyntaxError& e) {
-        flag = true;
-    }
-    catch (NSymbolTable::SymbolTableException& e) {
-        flag = true;
-    }
-    EXPECT_TRUE(flag);
-}
-
-TEST(TestTypeCheckerBadSamples, test_21) {
-    bool flag = false;
-    try {
-        Comp::CDriver driver;
-        driver.parse("../BadSamples/LC_1.java");
 
         NSymbolTable::SymbolTable table = NSymbolTable::BuildSymbolTable(driver.program);
 
