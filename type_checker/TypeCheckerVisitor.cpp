@@ -22,14 +22,12 @@ namespace NTypeChecker {
             for (const auto &method: *clazz->methodDeclarations) {
                 if (auto methodInfo = symbolTable.FindMethod(method->id, clazz->extendsId)) {
                     if (methodInfo->GetArgsInfo().size() != method->args->size()) {
-                        auto e = new RedefinitionException(method->location, method->id, methodInfo->GetLocation());
-                        std::cerr << e->what() << std::endl;
+                        throw RedefinitionException(method->location, method->id, methodInfo->GetLocation());
                     }
 
                     for (uint32 i = 0; i < method->args->size(); ++i) {
                         if (methodInfo->GetArgsInfo().at(i).GetTypeInfo() != method->args->at(i)->type) {
-                            auto e = new RedefinitionException(method->location, method->id, methodInfo->GetLocation());
-                            std::cerr << e->what() << std::endl;
+                            throw RedefinitionException(method->location, method->id, methodInfo->GetLocation());
                         }
                     }
                 }
@@ -37,8 +35,7 @@ namespace NTypeChecker {
 
             for (const auto &var: *clazz->varDeclarations) {
                 if (auto varInfo = symbolTable.FindIdentifier(&symbolTable.GetClassInfo(clazz->extendsId), var->id)) {
-                    auto e = new RedefinitionException(var->location, var->id, varInfo->GetLocation());
-                    std::cerr << e->what() << std::endl;
+                    throw RedefinitionException(var->location, var->id, varInfo->GetLocation());
                 }
             }
         }
@@ -62,26 +59,22 @@ namespace NTypeChecker {
 
         for (const auto &arg: *method->args) {
             if (auto varInfo = symbolTable.FindIdentifier(switcher.CurrentClass(), arg->id)) {
-                auto e = new RedefinitionException(arg->location, arg->id, varInfo->GetLocation());
-                std::cerr << e->what() << std::endl;
+                throw RedefinitionException(arg->location, arg->id, varInfo->GetLocation());
             }
 
             TypeInfo type = arg->type;
             if (type.GetType() == CLASS && !symbolTable.HasClass(type.GetClassId())) {
-                auto e = new NonDeclaredSymbolException(arg->location, type.GetClassId());
-                std::cerr << e->what() << std::endl;
+                throw NonDeclaredSymbolException(arg->location, type.GetClassId());
             }
         }
 
         for (const auto &var: *method->localVars) {
             if (auto varInfo = symbolTable.FindIdentifier(switcher.CurrentClass(), var->id)) {
-                auto e = new RedefinitionException(var->location, var->id, varInfo->GetLocation());
-                std::cerr << e->what() << std::endl;
+                throw RedefinitionException(var->location, var->id, varInfo->GetLocation());
             }
 
             if (switcher.CurrentMethod()->GetArgsMap().find(var->id) != switcher.CurrentMethod()->GetArgsMap().end()) {
-                auto e = new RedefinitionException(var->location, var->id, switcher.CurrentMethod()->GetArgsMap().at(var->id).GetLocation());
-                std::cerr << e->what() << std::endl;
+                throw RedefinitionException(var->location, var->id, switcher.CurrentMethod()->GetArgsMap().at(var->id).GetLocation());
             }
         }
 
@@ -119,8 +112,7 @@ namespace NTypeChecker {
         const auto &variable = FindAndCheckIdentifier(*switcher.CurrentClass(), *switcher.CurrentMethod(), statement->lvalue, statement->location);
 
         if (*switcher.CurrentExprType() != variable.GetTypeInfo()) {
-            auto e = new IllegalTypeException(statement->rvalue->location, *switcher.CurrentExprType(), variable.GetTypeInfo());
-            std::cerr << e->what() << std::endl;
+            throw IllegalTypeException(statement->rvalue->location, *switcher.CurrentExprType(), variable.GetTypeInfo());
         }
     }
 
@@ -131,8 +123,7 @@ namespace NTypeChecker {
         const auto &variable = FindAndCheckIdentifier(*switcher.CurrentClass(), *switcher.CurrentMethod(), statement->arrayId, statement->location);
 
         if (variable.GetTypeInfo() != IntArrayType) {
-            auto e = new IllegalTypeException(statement->location, variable.GetTypeInfo(), IntArrayType);
-            std::cerr << e->what() << std::endl;
+            throw IllegalTypeException(statement->location, variable.GetTypeInfo(), IntArrayType);
         }
     }
 
@@ -171,23 +162,20 @@ namespace NTypeChecker {
         TypeInfo objectType = *switcher.CurrentExprType();
 
         if (objectType.GetType() != NSymbolTable::CLASS) {
-            auto e = new IllegalTypeException(expression->object->location, objectType);
-            std::cerr << e->what() << std::endl;
+            throw IllegalTypeException(expression->object->location, objectType);
         }
 
         // check call (including public/private access)
         auto method = FindAndCheckMethod(expression->nameId, objectType.GetClassId(), expression->location);
 
         if (method.GetArgsInfo().size() != expression->args->size()) {
-            auto e = new BadArgumentsException(expression->location);
-            std::cerr << e->what() << std::endl;
+            throw BadArgumentsException(expression->location);
         }
 
         for (uint32 i = 0; i < expression->args->size(); ++i) {
             expression->args->at(i)->Accept(this);
             if (!IsSimilarTypes(*switcher.CurrentExprType(), method.GetArgsInfo().at(i).GetTypeInfo())) {
-                auto e = new IllegalTypeException(expression->args->at(i)->location, *switcher.CurrentExprType(), method.GetArgsInfo().at(i).GetTypeInfo());
-                std::cerr << e->what() << std::endl;
+                throw IllegalTypeException(expression->args->at(i)->location, *switcher.CurrentExprType(), method.GetArgsInfo().at(i).GetTypeInfo());
             }
         }
 
@@ -219,8 +207,7 @@ namespace NTypeChecker {
 
     void TypeCheckerVisitor::Visit(const NTree::NewExpression *expression) {
         if (!symbolTable.HasClass(expression->classId)) {
-            auto e = new NSymbolTable::NonDeclaredSymbolException(expression->location, expression->classId);
-            std::cerr << e->what() << std::endl;
+            throw NSymbolTable::NonDeclaredSymbolException(expression->location, expression->classId);
         }
 
         switcher.SwitchExprType(new TypeInfo(CLASS, expression->classId));
@@ -246,13 +233,11 @@ namespace NTypeChecker {
         auto method = symbolTable.FindMethod(methodId, classId);
 
         if (!method) {
-            auto e = new NonDeclaredSymbolException(location, methodId);
-            std::cerr << e->what() << std::endl;
+            throw NonDeclaredSymbolException(location, methodId);
         }
 
         if (method->GetModifier() == NTree::PRIVATE && classInfo.GetId() != switcher.CurrentClass()->GetId()) {
-            auto e = new PrivateAccessException(location, methodId, classInfo.GetId());
-            std::cerr << e->what() << std::endl;
+            throw PrivateAccessException(location, methodId, classInfo.GetId());
         }
 
         return *method;
@@ -261,8 +246,7 @@ namespace NTypeChecker {
     void TypeCheckerVisitor::CheckExpressionType(const NTree::IExpression *expression, const TypeInfo &expected) {
         expression->Accept(this);
         if (*switcher.CurrentExprType() != expected) {
-            auto e = new IllegalTypeException(expression->location, *switcher.CurrentExprType(), expected);
-            std::cerr << e->what() << std::endl;
+            throw IllegalTypeException(expression->location, *switcher.CurrentExprType(), expected);
         }
     }
 
@@ -276,8 +260,7 @@ namespace NTypeChecker {
             return *idInfo;
         }
 
-        auto e = new NonDeclaredSymbolException(location, id);
-        std::cerr << e->what() << std::endl;
+        throw NonDeclaredSymbolException(location, id);
     }
 
     bool TypeCheckerVisitor::IsSimilarTypes(const TypeInfo &first, const TypeInfo &second) const {

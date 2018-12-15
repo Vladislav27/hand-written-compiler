@@ -11,7 +11,7 @@ class TreeVisitor{
 class TV {
 
     public int Start(){
-		Здравствуй, мир!
+		Р—РґСЂР°РІСЃС‚РІСѓР№, РјРёСЂ!
 	return 0 ;
     }
 
