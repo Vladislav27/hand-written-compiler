@@ -38,10 +38,8 @@ namespace NTypeChecker {
         const std::string childClassName = childClassInfo.GetId()->String();
 
         if (superClassName == childClassName) {
-            auto e = new NSymbolTable::CyclicDependencyException(childClassInfo.GetLocation(),
+            throw NSymbolTable::CyclicDependencyException(childClassInfo.GetLocation(),
                                                           childClassInfo.GetId());
-            std::cerr << e->what() << std::endl;
-            return;
         }
 
         // Дальше нужно запустить обход глубже - в superClass для superClass

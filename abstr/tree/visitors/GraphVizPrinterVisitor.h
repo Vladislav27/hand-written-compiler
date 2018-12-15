@@ -9,7 +9,7 @@ namespace NTree {
 
         std::ostream& outPut;
     public:
-        GraphVizPrinterVisitor(std::ostream& _outPut = std::cout) : outPut(_outPut) {}
+        explicit GraphVizPrinterVisitor(std::ostream& _outPut = std::cout) : outPut(_outPut) {}
         virtual ~GraphVizPrinterVisitor() = default;
 
         void printVertex(const INode* node, const std::string& label);

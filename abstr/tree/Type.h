@@ -14,6 +14,6 @@ namespace NTree {
     class Type {
     public:
         EType type = CLASS;
-        const Symbol* id{};
+        const Symbol* id;
     };
 }
