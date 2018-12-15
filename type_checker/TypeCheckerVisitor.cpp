@@ -23,13 +23,13 @@ namespace NTypeChecker {
                 if (auto methodInfo = symbolTable.FindMethod(method->id, clazz->extendsId)) {
                     if (methodInfo->GetArgsInfo().size() != method->args->size()) {
                         auto e = new RedefinitionException(method->location, method->id, methodInfo->GetLocation());
-                        std::cerr << e->what() << std::endl;
+                        throw e;
                     }
 
                     for (uint32 i = 0; i < method->args->size(); ++i) {
                         if (methodInfo->GetArgsInfo().at(i).GetTypeInfo() != method->args->at(i)->type) {
                             auto e = new RedefinitionException(method->location, method->id, methodInfo->GetLocation());
-                            std::cerr << e->what() << std::endl;
+                            throw e;
                         }
                     }
                 }
@@ -38,7 +38,7 @@ namespace NTypeChecker {
             for (const auto &var: *clazz->varDeclarations) {
                 if (auto varInfo = symbolTable.FindIdentifier(&symbolTable.GetClassInfo(clazz->extendsId), var->id)) {
                     auto e = new RedefinitionException(var->location, var->id, varInfo->GetLocation());
-                    std::cerr << e->what() << std::endl;
+                    throw e;
                 }
             }
         }
@@ -63,25 +63,25 @@ namespace NTypeChecker {
         for (const auto &arg: *method->args) {
             if (auto varInfo = symbolTable.FindIdentifier(switcher.CurrentClass(), arg->id)) {
                 auto e = new RedefinitionException(arg->location, arg->id, varInfo->GetLocation());
-                std::cerr << e->what() << std::endl;
+                throw e;
             }
 
             TypeInfo type = arg->type;
             if (type.GetType() == CLASS && !symbolTable.HasClass(type.GetClassId())) {
                 auto e = new NonDeclaredSymbolException(arg->location, type.GetClassId());
-                std::cerr << e->what() << std::endl;
+                throw e;
             }
         }
 
         for (const auto &var: *method->localVars) {
             if (auto varInfo = symbolTable.FindIdentifier(switcher.CurrentClass(), var->id)) {
                 auto e = new RedefinitionException(var->location, var->id, varInfo->GetLocation());
-                std::cerr << e->what() << std::endl;
+                throw e;
             }
 
             if (switcher.CurrentMethod()->GetArgsMap().find(var->id) != switcher.CurrentMethod()->GetArgsMap().end()) {
                 auto e = new RedefinitionException(var->location, var->id, switcher.CurrentMethod()->GetArgsMap().at(var->id).GetLocation());
-                std::cerr << e->what() << std::endl;
+                throw e;
             }
         }
 
@@ -120,7 +120,7 @@ namespace NTypeChecker {
 
         if (*switcher.CurrentExprType() != variable.GetTypeInfo()) {
             auto e = new IllegalTypeException(statement->rvalue->location, *switcher.CurrentExprType(), variable.GetTypeInfo());
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
     }
 
@@ -132,7 +132,7 @@ namespace NTypeChecker {
 
         if (variable.GetTypeInfo() != IntArrayType) {
             auto e = new IllegalTypeException(statement->location, variable.GetTypeInfo(), IntArrayType);
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
     }
 
@@ -172,7 +172,7 @@ namespace NTypeChecker {
 
         if (objectType.GetType() != NSymbolTable::CLASS) {
             auto e = new IllegalTypeException(expression->object->location, objectType);
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
 
         // check call (including public/private access)
@@ -180,14 +180,14 @@ namespace NTypeChecker {
 
         if (method.GetArgsInfo().size() != expression->args->size()) {
             auto e = new BadArgumentsException(expression->location);
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
 
         for (uint32 i = 0; i < expression->args->size(); ++i) {
             expression->args->at(i)->Accept(this);
             if (!IsSimilarTypes(*switcher.CurrentExprType(), method.GetArgsInfo().at(i).GetTypeInfo())) {
                 auto e = new IllegalTypeException(expression->args->at(i)->location, *switcher.CurrentExprType(), method.GetArgsInfo().at(i).GetTypeInfo());
-                std::cerr << e->what() << std::endl;
+                throw e;
             }
         }
 
@@ -220,7 +220,7 @@ namespace NTypeChecker {
     void TypeCheckerVisitor::Visit(const NTree::NewExpression *expression) {
         if (!symbolTable.HasClass(expression->classId)) {
             auto e = new NSymbolTable::NonDeclaredSymbolException(expression->location, expression->classId);
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
 
         switcher.SwitchExprType(new TypeInfo(CLASS, expression->classId));
@@ -247,12 +247,12 @@ namespace NTypeChecker {
 
         if (!method) {
             auto e = new NonDeclaredSymbolException(location, methodId);
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
 
         if (method->GetModifier() == NTree::PRIVATE && classInfo.GetId() != switcher.CurrentClass()->GetId()) {
             auto e = new PrivateAccessException(location, methodId, classInfo.GetId());
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
 
         return *method;
@@ -262,7 +262,7 @@ namespace NTypeChecker {
         expression->Accept(this);
         if (*switcher.CurrentExprType() != expected) {
             auto e = new IllegalTypeException(expression->location, *switcher.CurrentExprType(), expected);
-            std::cerr << e->what() << std::endl;
+            throw e;
         }
     }
 
@@ -277,8 +277,7 @@ namespace NTypeChecker {
         }
 
         auto e = new NonDeclaredSymbolException(location, id);
-        std::cerr << e->what() << std::endl;
-        return *idInfo;
+        throw e;
     }
 
     bool TypeCheckerVisitor::IsSimilarTypes(const TypeInfo &first, const TypeInfo &second) const {
