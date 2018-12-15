@@ -278,6 +278,7 @@ namespace NTypeChecker {
 
         auto e = new NonDeclaredSymbolException(location, id);
         std::cerr << e->what() << std::endl;
+        return *idInfo;
     }
 
     bool TypeCheckerVisitor::IsSimilarTypes(const TypeInfo &first, const TypeInfo &second) const {

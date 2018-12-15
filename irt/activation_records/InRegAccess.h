@@ -21,10 +21,10 @@ namespace NIRTree {
         IExp* GetExp(Temp* fp, const Location& location) const override;
 
     private:
-        const int size;
         const ERecordsType recordType;
-        int id;
+        const int size;
         const std::string name;
+        int id;
         std::unique_ptr<Temp> temp;
     };
 }

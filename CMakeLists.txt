@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(hand_written_compiler)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-deprecated-register")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 if (APPLE)
     set(BISON_EXECUTABLE "/usr/local/opt/bison/bin/bison")
 endif (APPLE)
