@@ -15,11 +15,10 @@ namespace NTypeChecker {
             const NTree::Symbol *superClassId = currentClassInfo.GetSuperClassId();
             if (superClassId != nullptr) {
                 if (!symbolTable.HasClass(superClassId)) {
-                    auto e = new NSymbolTable::NonDeclaredSymbolException(
+                    throw NSymbolTable::NonDeclaredSymbolException(
                         symbolTable.GetClassInfo(superClassId).GetLocation(),
                         superClassId
                     );
-                    std::cerr << e->what() << std::endl;
                 }
                 CheckInClass(symbolTable, currentClassInfo.GetSuperClassId(), currentClassInfo);
             }
@@ -38,9 +37,8 @@ namespace NTypeChecker {
         const std::string childClassName = childClassInfo.GetId()->String();
 
         if (superClassName == childClassName) {
-            auto e = new NSymbolTable::CyclicDependencyException(childClassInfo.GetLocation(),
+            throw NSymbolTable::CyclicDependencyException(childClassInfo.GetLocation(),
                                                           childClassInfo.GetId());
-            throw e;
         }
 
         // Дальше нужно запустить обход глубже - в superClass для superClass

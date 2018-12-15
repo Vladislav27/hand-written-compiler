@@ -35,8 +35,7 @@ namespace NSymbolTable {
     template<class Map>
     void CheckIdentifier(const Map& map, const  NTree::Symbol *newId, const  NTree::Location &newLocation) {
         if (map.find(newId) != map.end()) {
-            auto e = new RedefinitionException(newLocation, newId, map.at(newId).GetLocation());
-            std::cerr << e->what() << std::endl;
+            throw RedefinitionException(newLocation, newId, map.at(newId).GetLocation());
         }
     }
 }
