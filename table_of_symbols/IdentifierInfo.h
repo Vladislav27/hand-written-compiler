@@ -7,25 +7,25 @@
 namespace NSymbolTable {
     class IdentifierInfo {
     protected:
-        const  NTree::Symbol* id = nullptr;
+        const  NTree::Symbol* id;
         NTree::Location location;
 
     public:
-        inline IdentifierInfo(const  NTree::Symbol* _id, const  NTree::Location& _location)
+        IdentifierInfo(const  NTree::Symbol* _id, const  NTree::Location& _location)
             : id(_id), location(_location) {
         }
 
-        inline IdentifierInfo(const IdentifierInfo &info) = default;
-        inline IdentifierInfo &operator=(const IdentifierInfo &info) = default;
+        IdentifierInfo(const IdentifierInfo &info) = default;
+        IdentifierInfo &operator=(const IdentifierInfo &info) = default;
 
-        inline IdentifierInfo(IdentifierInfo &&info) = default;
-        inline IdentifierInfo &operator=(IdentifierInfo &&info) = default;
+        IdentifierInfo(IdentifierInfo &&info) = default;
+        IdentifierInfo &operator=(IdentifierInfo &&info) = default;
 
-        inline const  NTree::Symbol* GetId() const {
+        const  NTree::Symbol* GetId() const {
             return id;
         }
 
-        inline const  NTree::Location& GetLocation() const {
+        const  NTree::Location& GetLocation() const {
             return location;
         }
 
