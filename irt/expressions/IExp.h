@@ -4,7 +4,7 @@
 
 namespace NIRTree {
     interface IExp : public INode {
-        IExp(const Location &location = Location()) : INode(location) {
+        explicit IExp(const Location &location = Location()) : INode(location) {
         }
 
     };

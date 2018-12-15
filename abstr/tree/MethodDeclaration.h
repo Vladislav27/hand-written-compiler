@@ -34,7 +34,9 @@ namespace NTree {
             , vector<unique_ptr<VarDeclaration>>* vars
             , vector<unique_ptr<IStatement>>* statements
             , IExpression* expression)
-            : INode(location), returnType(type), id(name), args(args), localVars(vars), statements(statements), returnExpression(expression) {
+            : INode(location), returnType(type), id(name), args(args), localVars(vars), statements(statements),
+              returnExpression(expression) {
+            modifier = PUBLIC;
             }
 
         void Accept(IVisitor *visitor) const override;

@@ -7,7 +7,7 @@
 namespace NSymbolTable {
     class SymbolTableException : public NTree::SyntaxError {
     public:
-        SymbolTableException(const std::string& message) : NTree::SyntaxError(message) {
+        explicit SymbolTableException(const std::string& message) : NTree::SyntaxError(message) {
         }
     };
 
