@@ -16,7 +16,7 @@ namespace NIRTree {
     }
 
     void IRPrettyPrinter::printEdge(const INode *from, const INode *to, const std::string &label) {
-        outPut << "\tnode" << from << "->" << "node" << to << "[label=\"" << label << "\"]\n";
+        outPut << "\tnode" << from << "->" << "node" << to << "\n"; //"[label=\"" << label << "\"]\n";
     }
 
     void IRPrettyPrinter::Visit(const Binop *node) {
@@ -142,7 +142,7 @@ namespace NIRTree {
     }
 
     void IRPrettyPrinter::Visit(const StmList *node) {
-        printVertex(node, std::string("StmList"));
+        printVertex(node, std::string("Seq"));
 
         if (!node->head) {
             const INode* x = hashINode(node);
