@@ -101,6 +101,32 @@ TEST(TestAST, test_5) {
     outPut.close();
 }
 
+TEST(TestAST, test_6) {
+    Comp::CDriver driver;
+    driver.parse("../Samples/BinaryTree.java");
+    // ast
+
+    std::ofstream outPut("./graph_ast.gv");
+
+    NTree::GraphVizPrinterVisitor printer(outPut);
+    printer.Visit(&driver.program);
+
+    outPut.close();
+}
+
+TEST(TestAST, test_7) {
+    Comp::CDriver driver;
+    driver.parse("../Samples/LinkedList.java");
+    // ast
+
+    std::ofstream outPut("./graph_ast.gv");
+
+    NTree::GraphVizPrinterVisitor printer(outPut);
+    printer.Visit(&driver.program);
+
+    outPut.close();
+}
+
 TEST(TestIRT, test_1) {
     Comp::CDriver driver;
     driver.parse("../Samples/BinarySearch.java");
@@ -204,6 +230,56 @@ TEST(TestIRT, test_4) {
 TEST(TestIRT, test_5) {
     Comp::CDriver driver;
     driver.parse("../Samples/QuickSort.java");
+    // ast
+
+    std::ofstream outPut("./graph_ast.gv");
+
+    NTree::GraphVizPrinterVisitor printer(outPut);
+    printer.Visit(&driver.program);
+
+    outPut.close();
+
+    // irt
+    std::ofstream outIrt("./graph_irt.gv");
+
+    NSymbolTable::SymbolTable symbolTable = NSymbolTable::BuildSymbolTable(driver.program);
+
+    NIRTree::IRPrettyPrinter irPrinter(outIrt);
+    NIRTree::IRForest forest = NIRTree::BuildTree(driver.program, symbolTable);
+
+    irPrinter.Visit(forest);
+
+    outIrt.close();
+}
+
+TEST(TestIRT, test_6) {
+    Comp::CDriver driver;
+    driver.parse("../Samples/BinaryTree.java");
+    // ast
+
+    std::ofstream outPut("./graph_ast.gv");
+
+    NTree::GraphVizPrinterVisitor printer(outPut);
+    printer.Visit(&driver.program);
+
+    outPut.close();
+
+    // irt
+    std::ofstream outIrt("./graph_irt.gv");
+
+    NSymbolTable::SymbolTable symbolTable = NSymbolTable::BuildSymbolTable(driver.program);
+
+    NIRTree::IRPrettyPrinter irPrinter(outIrt);
+    NIRTree::IRForest forest = NIRTree::BuildTree(driver.program, symbolTable);
+
+    irPrinter.Visit(forest);
+
+    outIrt.close();
+}
+
+TEST(TestIRT, test_7) {
+    Comp::CDriver driver;
+    driver.parse("../Samples/LinkedList.java");
     // ast
 
     std::ofstream outPut("./graph_ast.gv");
