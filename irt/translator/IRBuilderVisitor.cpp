@@ -284,11 +284,10 @@ namespace NIRTree {
         frame.reset(frameBuilder->GetFrame(*switcher.CurrentClass(), methodInfo, symbolTable));
         IStm* stm = nullptr;
         if( !node->statements->empty() ) {
-
             for (const auto &statement: *node->statements) {
                 statement->Accept(this);
+                stm = new StmList(mainSubtree->ToStm(), stm, node->location);
             }
-            stm = new StmList(mainSubtree->ToStm(), nullptr, node->location);
         }
         node->returnExpression->Accept(this);
         if(stm != nullptr) {
