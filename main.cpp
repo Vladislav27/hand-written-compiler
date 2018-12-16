@@ -13,8 +13,8 @@ int main(int argc, char** argv) {
 
     Comp::CDriver driver;
     driver.parse(argv[1]);
+    
     // ast
-
     std::ofstream outPut("./graph_ast.gv");
 
     NTree::GraphVizPrinterVisitor printer(outPut);

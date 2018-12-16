@@ -103,7 +103,13 @@ namespace NIRTree {
         }
 
         auto info = symbolTable.FindIdentifier(switcher.CurrentClass(), expr->identifier, switcher.CurrentMethod());
-        switcher.SwitchExprType(new NSymbolTable::TypeInfo(NSymbolTable::CLASS, info->GetId()));
+        if (info->GetTypeInfo().GetType() != NSymbolTable::CLASS) {
+            switcher.SwitchExprType(new NSymbolTable::TypeInfo(info->GetTypeInfo().GetType(), nullptr));
+        }
+        else {
+            switcher.SwitchExprType(
+                    new NSymbolTable::TypeInfo(NSymbolTable::CLASS, info->GetTypeInfo().GetClassId()));
+        }
         mainSubtree.reset(new ExprWrapper(varExp));
     }
 
