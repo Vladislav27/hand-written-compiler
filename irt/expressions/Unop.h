@@ -17,5 +17,9 @@ namespace NIRTree {
         std::unique_ptr<IExp> exp;
 
         void Accept(IIRVisitor *visitor) const override;
+        void Accept(IIRMutableVisitor *visitor) override;
+        bool IsCommutative() const override { return false; }
+        bool IsAbsolutelyCommutative() const override { return false; }
+
     };
 }

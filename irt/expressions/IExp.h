@@ -6,6 +6,8 @@ namespace NIRTree {
     interface IExp : public INode {
         explicit IExp(const Location &location = Location()) : INode(location) {
         }
+        virtual bool IsCommutative() const = 0;
+        virtual bool IsAbsolutelyCommutative() const = 0;
 
     };
 }

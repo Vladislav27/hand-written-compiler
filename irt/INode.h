@@ -6,6 +6,7 @@
 
 namespace NIRTree {
     interface IIRVisitor;
+    interface IIRMutableVisitor;
 
     interface INode {
         Location location;
@@ -16,6 +17,7 @@ namespace NIRTree {
         }
 
         virtual void Accept(IIRVisitor *visitor) const = 0;
+        virtual void Accept(IIRMutableVisitor *visitor) = 0;
 
         virtual ~INode() = default;
     };

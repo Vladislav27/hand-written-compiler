@@ -13,6 +13,7 @@ namespace NIRTree {
         }
 
         void Accept(IIRVisitor *visitor) const override;
+        void Accept(IIRMutableVisitor *visitor) override;
     };
 
     typedef std::vector<const Label*> LabelList;

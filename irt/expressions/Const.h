@@ -12,5 +12,9 @@ namespace NIRTree {
         }
 
         void Accept(IIRVisitor *visitor) const override;
+        void Accept(IIRMutableVisitor *visitor) override;
+        bool IsCommutative() const override { return true; }
+        bool IsAbsolutelyCommutative() const override { return true; }
+
     };
 }
