@@ -55,6 +55,7 @@ set(SOURCE_FILES
         irt/translator/IRBuilderVisitor.cpp
         irt/translator/IRPrettyPrinter.cpp
         irt/translator/X86IRBuilder.cpp
+        irt/translator/Canoniser.cpp
         )
 
 add_executable(hand_written_compiler

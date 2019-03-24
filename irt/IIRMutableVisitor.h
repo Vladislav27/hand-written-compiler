@@ -2,7 +2,7 @@
 
 #include "NodeTypes.h"
 
-#include <util/CommonDefs.h>
+#include <irt/CommonDefs.h>
 
 namespace NIRTree {
     interface IIRMutableVisitor {

@@ -12,6 +12,7 @@ namespace NIRTree {
         inline explicit IRPrettyPrinter(std::ostream& _outPut = std::cout) : outPut(_outPut) {}
 
         void Visit(const IRForest &forest);
+        void Visit(const IRLinearForest &forest);
 
         ~IRPrettyPrinter() = default;
 

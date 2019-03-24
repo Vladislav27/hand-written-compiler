@@ -24,4 +24,6 @@
 
 namespace NIRTree {
     using IRForest = std::unordered_map<const Symbol*, std::unique_ptr<ISubtreeWrapper>>;
+    using LinearTree = std::vector<std::unique_ptr<IStm>>;
+    using IRLinearForest = std::unordered_map<const Symbol*, LinearTree>;
 }

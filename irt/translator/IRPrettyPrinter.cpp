@@ -202,4 +202,16 @@ namespace NIRTree {
 
         outPut << "}\n";
     }
+
+    void IRPrettyPrinter::Visit(const IRLinearForest &forest) {
+        outPut <<  "digraph g {\n" << "\n";
+
+        for (const auto &root: forest) {
+            for (const auto &stm: root.second) {
+                stm->Accept(this);
+            }
+        }
+
+        outPut << "}\n";
+    }
 }
