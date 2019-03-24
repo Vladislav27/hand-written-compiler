@@ -61,7 +61,7 @@ namespace NIRTree {
         }
 
         for (const auto &id2info: classInfo.GetVarsInfo()) {
-            AddFormal(id2info.second);
+            AddLocal(id2info.second);
         }
 
         AddAddressExit();

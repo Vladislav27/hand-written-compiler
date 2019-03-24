@@ -5,15 +5,11 @@ class Factorial{
 }
 
 class Fac {
-
-    public int ComputeFac(){
     int a;
-    if (1 < 2) {
-        a = 123;
-    }
-    else{
-        a = 456;
-    }
-    return 123421;
+    int b;
+    public int ComputeFac(){
+    a = 128374;
+    b = 4235;
+    return a;
     }
 }

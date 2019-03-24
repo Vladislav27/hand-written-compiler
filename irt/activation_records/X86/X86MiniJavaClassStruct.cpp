@@ -4,7 +4,7 @@
 
 namespace NIRTree {
     std::string X86MiniJavaClassStruct::GetTableName() const {
-        return std::string("_vTable::") + className->String();
+        return /*std::string("_vTable::") + */className->String();
     }
 
     IExp* X86MiniJavaClassStruct::GetFieldFrom(const Symbol *fieldName, IExp *base, const Location &location) const {

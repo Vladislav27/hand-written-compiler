@@ -69,8 +69,16 @@ namespace NIRTree {
     void IRPrettyPrinter::Visit(const Temp *node) {
         static const std::vector<std::string> types = {"ID", "NAME"};
 
-        printVertex(node, std::string("Temp ") 
-                + types.at(node->type) + " " + node->name + " " + std::to_string(node->id));    
+        std::string type = types.at(node->type);
+        if (type == "NAME") {
+            printVertex(node, std::string("Temp ")
+                              + types.at(node->type) + " " + node->name /*+ " " + std::to_string(node->id)*/);
+        }
+        else
+        {
+            printVertex(node, std::string("Temp ")
+                              + types.at(node->type) + " " + node->name + " " + std::to_string(node->id));
+        }
     }
         
     void IRPrettyPrinter::Visit(const Unop *node) {
