@@ -35,10 +35,10 @@ namespace NIRTree {
                 wordSize * (vtableEntries.size() + 1), location), nullptr, location);
         const int baseAddressId = 0;
         auto baseAddress = new Temp(baseAddressId, location);
-        auto prepareActions = new StmList(new Move(baseAddress,
-                new Call(new Name(mallocName, location), allocArg, location), location), nullptr, location);
+        auto prepareActionsMove = new Move(baseAddress,
+                new Call(new Name(mallocName, location), allocArg, location), location);
 
-        prepareActions = new StmList(prepareActions, new Move(new Mem(new Temp(*baseAddress), location),
+        auto prepareActions = new StmList(prepareActionsMove, new Move(new Mem(new Temp(*baseAddress), location),
                 new Name(GetTableName(), location), location), location);
         for (auto fieldsOffset: fieldsOffsets) {
             prepareActions = new StmList(prepareActions, new Move(
