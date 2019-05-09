@@ -77,7 +77,8 @@ namespace NIRTree {
         else
         {
             printVertex(node, std::string("Temp ")
-                              + types.at(node->type) + " " + node->name + " " + std::to_string(node->id));
+                              + types.at(node->type) + " " + node->name + " " + std::to_string(node->id)
+                              + " LocalId " + std::to_string(node->localId));
         }
     }
         
