@@ -108,8 +108,8 @@ namespace NIRTree {
 
         if (!node->exp) {
             const INode* x = hashINode(node);
-            printVertex(x, "nullptr");
-            printEdge(node, x);
+//            printVertex(x, "nullptr");
+//            printEdge(node, x);
         } else {
             node->exp->Accept(this);
             printEdge(node, (node->exp).get());
@@ -154,8 +154,8 @@ namespace NIRTree {
 
         if (!node->head) {
             const INode* x = hashINode(node);
-            printVertex(x, "nullptr");
-            printEdge(node, x, "StmList head");
+//            printVertex(x, "nullptr");
+//            printEdge(node, x, "StmList head");
         } else {
             node->head->Accept(this);
             printEdge(node, (node->head).get(), "StmList head");
@@ -163,8 +163,8 @@ namespace NIRTree {
 
         if (!node->tail) {
             const INode* x = hashINode(node + 1);
-            printVertex(x, "nullptr");
-            printEdge(node, x, "StmList tail");
+//            printVertex(x, "nullptr");
+//            printEdge(node, x, "StmList tail");
         } else {
             node->tail->Accept(this);
             printEdge(node, (node->tail).get(), "StmList tail");
@@ -176,8 +176,8 @@ namespace NIRTree {
 
         if (!node->head) {
             const INode* x = hashINode(node);
-            printVertex(x, "nullptr");
-            printEdge(node, x, "ExpList head");
+//            printVertex(x, "nullptr");
+//            printEdge(node, x, "ExpList head");
         } else {
             node->head->Accept(this);
             printEdge(node, (node->head).get(), "ExpList head");
@@ -185,8 +185,8 @@ namespace NIRTree {
 
         if (!node->tail) {
             const INode* x = hashINode(node + 1);
-            printVertex(x, "nullptr");
-            printEdge(node, x, "ExpList tail");
+//            printVertex(x, "nullptr");
+//            printEdge(node, x, "ExpList tail");
         } else {
             node->tail->Accept(this);
             printEdge(node, (node->tail).get(), "ExpList tail");

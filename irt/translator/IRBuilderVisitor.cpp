@@ -115,9 +115,8 @@ namespace NIRTree {
 
     void IRBuilderVisitor::Visit(const NTree::ThisExpression *expr) {
         mainSubtree.reset(new ExprWrapper(
-                new Mem(frame->GetFormalOrLocal(symbolTable.GetInterner()->GetIntern("this"))->GetExp(
-                        new Temp("fp", expr->location), expr->location),
-                        expr->location)));
+                frame->GetFormalOrLocal(symbolTable.GetInterner()->GetIntern("this"))->GetExp(
+                        new Temp("fp", expr->location), expr->location)));
         assert(switcher.CurrentClass() != nullptr);
         switcher.SwitchExprType(new NSymbolTable::TypeInfo(NSymbolTable::CLASS, switcher.CurrentClass()->GetId()));
     }
@@ -139,7 +138,7 @@ namespace NIRTree {
     }
 
     void IRBuilderVisitor::Visit(const NTree::MethodCallExpression *expr) {
-        expr->object->Accept(this);
+        expr->object->Accept(this); // либо создаем объект, либо работем с this
         Temp* baseAddress = new Temp(0, expr->location);
         IExp *baseExp = new ESeq(new Move(baseAddress, mainSubtree->ToExp(), expr->location),
                                  new Mem(new Temp(*baseAddress), expr->location), expr->location);
