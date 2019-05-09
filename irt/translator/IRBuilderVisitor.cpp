@@ -146,11 +146,22 @@ namespace NIRTree {
         assert(switcher.CurrentExprType() != nullptr);
         NSymbolTable::TypeInfo info = *switcher.CurrentExprType();
         assert(info.GetType() == NSymbolTable::CLASS);
-
-        auto arguments = new ExpList(baseExp, nullptr, expr->location);
-        for (const auto &arg: *expr->args) {
-            arg->Accept(this);
-            arguments = new ExpList(mainSubtree->ToExp(), arguments, expr->location);
+        ExpList* arguments;
+        if ((*expr->args.get()).size() == 0) {
+            arguments = new ExpList(baseExp, nullptr, expr->location);
+        }
+        else {
+            bool first = true;
+            for (const auto &arg: *expr->args) {
+                arg->Accept(this);
+                if (first) {
+                    arguments = new ExpList(mainSubtree->ToExp(), baseExp, expr->location);
+                    first = false;
+                }
+                else {
+                    arguments = new ExpList(mainSubtree->ToExp(), arguments, expr->location);
+                }
+            }
         }
 
         auto classInfo = symbolTable.GetClassInfo(info.GetClassId());
