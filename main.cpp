@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <code_generation/X86/X86CodeGeneration.h>
 #include <irt/translator/Canoniser.h>
 #include <irt/translator/IRPrettyPrinter.h>
 #include <irt/translator/X86IRBuilder.h>
@@ -46,5 +47,18 @@ int main(int argc, char** argv) {
 
     linearIRPrinter.Visit(linearForest);
     outLinearIrt.close();
+
+    //code generation
+
+    for (auto &trees: linearForest) {
+        NCodeGeneration::Muncher muncher(trees.second);
+        auto &list = muncher.CreateInstructionsList();
+        std::cout << trees.first->String() << std::endl;
+        std::cout << "-------------------------" << std::endl;
+        for(auto& l: list.instructions) {
+            std::cout  << l->Format() << std::endl;
+        }
+        std::cout << std::endl;
+    }
     return 0;
 }
